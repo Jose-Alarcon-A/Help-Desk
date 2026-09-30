@@ -1,12 +1,52 @@
+/* =========================================================
+   PÁGINA ERROR 404
+   ========================================================= */
+
+.error-page {
+  min-height: calc(100vh - 64px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* =========================================================
+   CONTENEDOR
+   ========================================================= */
+
 .error-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   gap: 24px;
+
+  text-align: center;
 }
 
+/* =========================================================
+   IMAGEN
+   ========================================================= */
+
 .error-image {
-  max-width: 500px;
-  width: 100%;
+  width: 400px;
+  max-width: 100%;
   height: auto;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .error-page {
+    padding: 24px;
+    box-sizing: border-box;
+  }
+
+  .error-image {
+    width: 300px;
+  }
+
 }
