@@ -17,7 +17,7 @@
        CARGANDO
        ===================================================== -->
 
-  @if (cargando) {
+  @if (cargando()) {
 
     <p class="mensaje-cargando">
       Cargando tickets...
@@ -33,7 +33,7 @@
 
     <div class="tickets-grid">
 
-      @for (ticket of tickets; track ticket.id) {
+      @for (ticket of tickets(); track ticket.id) {
 
         <mat-card>
 
@@ -154,7 +154,7 @@
                     calendar_today
                   </mat-icon>
 
-                  {{ ticket.fechaCreacion }}
+                  {{ ticket.fechaCreacion | date:'dd/MM/yyyy' }}
 
                 </span>
 

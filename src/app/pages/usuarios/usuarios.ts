@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,9 +19,9 @@ export class Usuarios {
 
   private usuarioService = inject(UsuarioService);
 
-  usuarios: Usuario[] = [];
+  usuarios = signal<Usuario[]>([]);
 
-  cargando = true;
+  cargando = signal(true);
 
   ngOnInit(): void {
     this.cargarUsuarios();
@@ -31,13 +31,13 @@ export class Usuarios {
     this.usuarioService.obtenerUsuarios().subscribe({
 
       next: (datos) => {
-        this.usuarios = datos;
-        this.cargando = false;
+        this.usuarios.set(datos);
+        this.cargando.set(false);
       },
 
       error: (error) => {
         console.error('Error al obtener los usuarios');
-        this.cargando = false;
+        this.cargando.set(false);
       }
 
     });

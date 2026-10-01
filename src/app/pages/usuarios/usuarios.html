@@ -17,7 +17,7 @@
        CARGANDO
        ===================================================== -->
 
-  @if (cargando) {
+  @if (cargando()) {
 
     <p class="mensaje-cargando">
       Cargando usuarios...
@@ -33,7 +33,7 @@
 
     <div class="usuarios-grid">
 
-      @for (usuario of usuarios; track usuario.id) {
+      @for (usuario of usuarios(); track usuario.id) {
 
         <mat-card>
 

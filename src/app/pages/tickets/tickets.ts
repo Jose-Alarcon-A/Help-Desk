@@ -1,4 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,7 +11,8 @@ import { TicketService } from '../../services/ticket';
   selector: 'app-tickets',
   imports: [
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    DatePipe
   ],
   styleUrl: './tickets.css',
   templateUrl: './tickets.html',
@@ -19,9 +21,9 @@ export class Tickets implements OnInit {
 
   private ticketService = inject(TicketService);
 
-  tickets: Ticket[] = [];
+  tickets = signal<Ticket[]>([]);
 
-  cargando = true;
+  cargando = signal(true);
 
   ngOnInit(): void {
     this.cargarTickets();
@@ -32,16 +34,16 @@ export class Tickets implements OnInit {
     this.ticketService.obtenerTickets().subscribe({
 
       next: (datos) => {
+        this.tickets.set(datos);
 
-        this.tickets = datos;
-        this.cargando = false;
+        this.cargando.set(false);
 
       },
 
       error: (error) => {
-
         console.error('Error al obtener los tickets');
-        this.cargando = false;
+
+        this.cargando.set(false);
 
       }
 
