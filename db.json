@@ -1,0 +1,48 @@
+{
+  "tickets": [
+    {
+      "id": 1,
+      "asunto": "Problema de Acceso",
+      "description": "AL intentar acceder al sistema, aparecio un error en pantalla.",
+      "estado": "Abierto",
+      "prioridad": "Alta",
+      "fechaCreacion": "2026-10-01"
+    },
+    {
+      "id": 2,
+      "asunto": "Error al generar resumen",
+      "description": "Durante el proceso de generacion del resumen, el sistema se demora y luego un error aparece en pantalla.",
+      "estado": "En proceso",
+      "prioridad": "Media",
+      "fechaCreacion": "2026-09-30"
+    },
+    {
+      "id": 3,
+      "asunto": "Problema de impresión",
+      "description": "Al intentar imprimir un documento, la impresora no responde y el sistema muestra un mensaje de error.",
+      "estado": "Cerrado",
+      "prioridad": "Baja",
+      "fechaCreacion": "2026-09-20"
+    }
+  ],
+  "usuarios": [
+    {
+      "id": 1,
+      "nombre": "Juan Pérez",
+      "correo": "juan.perez@gmail.com",
+      "rol": "Administrador"
+    },
+    {
+      "id": 2,
+      "nombre": "María García",
+      "correo": "maria.garcia@gmail.com",
+      "rol": "Soporte"
+    },
+    {
+      "id": 3,
+      "nombre": "Carlos López",
+      "correo": "carlos.lopez@gmail.com",
+      "rol": "Usuario"
+    }
+  ]
+}

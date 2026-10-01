@@ -6,6 +6,7 @@ import { Tickets } from './pages/tickets/tickets';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { Error404 } from './pages/error404/error404';
 import { Acerca } from './pages/acerca/acerca';
+import { Usuarios} from './pages/usuarios/usuarios';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,10 @@ export const routes: Routes = [
   {
     path: 'tickets',
     component: Tickets
+  },
+  {
+    path: 'usuarios',
+    component: Usuarios
   },
   {
     path: 'kanban',

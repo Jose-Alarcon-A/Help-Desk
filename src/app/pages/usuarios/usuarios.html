@@ -1,0 +1,30 @@
+<section>
+
+  <div>
+      <h1>Gestión de Usuarios</h1>
+      <p>Usuarios registrados en el sistema</p>
+  </div>
+
+    @if (cargando) {
+        <p>Cargando usuarios...</p>
+    }
+    @else {
+      <div>
+          @for (usuario of usuarios; track usuario.id) {
+              <mat-card>
+                  <mat-card-header>
+                      <mat-card-title>{{ usuario.nombre }} | {{ usuario.id }}</mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content>
+                      <p>{{ usuario.correo }}</p>
+                      <p>{{ usuario.rol }}</p>
+                      <p>{{ usuario.nombre }}</p>
+                  </mat-card-content>
+              </mat-card>
+          }
+          @empty {
+              <p>No hay registros asociados</p>
+          }
+      </div>
+    }
+</section>
