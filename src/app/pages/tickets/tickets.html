@@ -1,32 +1,183 @@
 <section>
 
-  <div>
-      <h1>Gestión de Tickets</h1>
-      <p>Solicitudes registradas en el sistema</p>
+  <!-- =====================================================
+       ENCABEZADO
+       ===================================================== -->
+
+  <div class="page-header">
+
+    <h1>Gestión de Tickets</h1>
+
+    <p>Solicitudes registradas en el sistema</p>
+
   </div>
 
-    @if (cargando) {
-        <p>Cargando tickets...</p>
-    }
-    @else {
-      <div>
-          @for (ticket of tickets; track ticket.id) {
-              <mat-card>
-                  <mat-card-header>
-                      <mat-card-title>{{ ticket.asunto }} | {{ ticket.id }}</mat-card-title>
-                  </mat-card-header>
-                  <mat-card-content>
-                      <p>{{ ticket.descripcion }}</p>
-                      <p>{{ ticket.estado }}</p>
-                      <p>{{ ticket.prioridad }}</p>
-                      <p>{{ ticket.fechaCreacion }}</p>
-                  </mat-card-content>
-              </mat-card>
-          }
-          @empty {
-              <p>No hay registros asociados</p>
-          }
-      </div>
-    }
+
+  <!-- =====================================================
+       CARGANDO
+       ===================================================== -->
+
+  @if (cargando) {
+
+    <p class="mensaje-cargando">
+      Cargando tickets...
+    </p>
+
+  }
+
+  @else {
+
+    <!-- ===================================================
+         GRILLA DE TICKETS
+         =================================================== -->
+
+    <div class="tickets-grid">
+
+      @for (ticket of tickets; track ticket.id) {
+
+        <mat-card>
+
+          <!-- =============================================
+               CABECERA DE LA TARJETA
+               ============================================= -->
+
+          <mat-card-header>
+
+            <mat-icon mat-card-avatar>
+              confirmation_number
+            </mat-icon>
+
+            <mat-card-title>
+              {{ ticket.asunto }}
+            </mat-card-title>
+
+            <mat-card-subtitle>
+              Ticket #{{ ticket.id }}
+            </mat-card-subtitle>
+
+          </mat-card-header>
+
+
+          <!-- =============================================
+               CONTENIDO
+               ============================================= -->
+
+          <mat-card-content>
+
+            <p class="descripcion">
+              {{ ticket.descripcion }}
+            </p>
+
+
+            <!-- ===========================================
+                 INFORMACIÓN DEL TICKET
+                 =========================================== -->
+
+            <div class="ticket-info">
+
+
+              <!-- ESTADO -->
+
+              <div class="info-item">
+
+                <span class="info-label">
+                  Estado
+                </span>
+
+                <span
+                  class="estado"
+                  [class.estado-abierto]="ticket.estado === 'Abierto'"
+                  [class.estado-proceso]="ticket.estado === 'En proceso'"
+                  [class.estado-cerrado]="ticket.estado === 'Cerrado'"
+                >
+
+                  <mat-icon>
+                    {{
+                      ticket.estado === 'Cerrado'
+                        ? 'check_circle'
+                        : ticket.estado === 'En proceso'
+                          ? 'autorenew'
+                          : 'error_outline'
+                    }}
+                  </mat-icon>
+
+                  {{ ticket.estado }}
+
+                </span>
+
+              </div>
+
+
+              <!-- PRIORIDAD -->
+
+              <div class="info-item">
+
+                <span class="info-label">
+                  Prioridad
+                </span>
+
+                <span
+                  class="prioridad"
+                  [class.prioridad-alta]="ticket.prioridad === 'Alta'"
+                  [class.prioridad-media]="ticket.prioridad === 'Media'"
+                  [class.prioridad-baja]="ticket.prioridad === 'Baja'"
+                >
+
+                  <mat-icon>
+                    {{
+                      ticket.prioridad === 'Alta'
+                        ? 'priority_high'
+                        : ticket.prioridad === 'Media'
+                          ? 'remove'
+                          : 'keyboard_arrow_down'
+                    }}
+                  </mat-icon>
+
+                  {{ ticket.prioridad }}
+
+                </span>
+
+              </div>
+
+
+              <!-- FECHA -->
+
+              <div class="info-item">
+
+                <span class="info-label">
+                  Creado
+                </span>
+
+                <span class="fecha">
+
+                  <mat-icon>
+                    calendar_today
+                  </mat-icon>
+
+                  {{ ticket.fechaCreacion }}
+
+                </span>
+
+              </div>
+
+            </div>
+
+          </mat-card-content>
+
+        </mat-card>
+
+      }
+
+      @empty {
+
+        <p class="mensaje-vacio">
+          No hay registros asociados
+        </p>
+
+      }
+
+    </div>
+
+  }
 
 </section>

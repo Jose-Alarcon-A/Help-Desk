@@ -1,30 +1,146 @@
 <section>
 
-  <div>
-      <h1>Gestión de Usuarios</h1>
-      <p>Usuarios registrados en el sistema</p>
+  <!-- =====================================================
+       ENCABEZADO
+       ===================================================== -->
+
+  <div class="page-header">
+
+    <h1>Gestión de Usuarios</h1>
+
+    <p>Usuarios registrados en el sistema</p>
+
   </div>
 
-    @if (cargando) {
-        <p>Cargando usuarios...</p>
-    }
-    @else {
-      <div>
-          @for (usuario of usuarios; track usuario.id) {
-              <mat-card>
-                  <mat-card-header>
-                      <mat-card-title>{{ usuario.nombre }} | {{ usuario.id }}</mat-card-title>
-                  </mat-card-header>
-                  <mat-card-content>
-                      <p>{{ usuario.correo }}</p>
-                      <p>{{ usuario.rol }}</p>
-                      <p>{{ usuario.nombre }}</p>
-                  </mat-card-content>
-              </mat-card>
-          }
-          @empty {
-              <p>No hay registros asociados</p>
-          }
-      </div>
-    }
+
+  <!-- =====================================================
+       CARGANDO
+       ===================================================== -->
+
+  @if (cargando) {
+
+    <p class="mensaje-cargando">
+      Cargando usuarios...
+    </p>
+
+  }
+
+  @else {
+
+    <!-- ===================================================
+         GRILLA DE USUARIOS
+         =================================================== -->
+
+    <div class="usuarios-grid">
+
+      @for (usuario of usuarios; track usuario.id) {
+
+        <mat-card>
+
+          <!-- =============================================
+               CABECERA DE LA TARJETA
+               ============================================= -->
+
+          <mat-card-header>
+
+            <mat-icon mat-card-avatar>
+              person
+            </mat-icon>
+
+            <mat-card-title>
+              {{ usuario.nombre }}
+            </mat-card-title>
+
+            <mat-card-subtitle>
+              Usuario #{{ usuario.id }}
+            </mat-card-subtitle>
+
+          </mat-card-header>
+
+
+          <!-- =============================================
+               CONTENIDO
+               ============================================= -->
+
+          <mat-card-content>
+
+            <!-- ===========================================
+                 INFORMACIÓN DEL USUARIO
+                 =========================================== -->
+
+            <div class="usuario-info">
+
+
+              <!-- CORREO -->
+
+              <div class="info-item">
+
+                <span class="info-label">
+                  Correo
+                </span>
+
+                <span class="correo">
+
+                  <mat-icon>
+                    email
+                  </mat-icon>
+
+                  {{ usuario.correo }}
+
+                </span>
+
+              </div>
+
+
+              <!-- ROL -->
+
+              <div class="info-item">
+
+                <span class="info-label">
+                  Rol
+                </span>
+
+                <span
+                  class="rol"
+                  [class.rol-administrador]="usuario.rol === 'Administrador'"
+                  [class.rol-soporte]="usuario.rol === 'Soporte'"
+                  [class.rol-usuario]="usuario.rol === 'Usuario'"
+                >
+
+                  <mat-icon>
+                    {{
+                      usuario.rol === 'Administrador'
+                        ? 'admin_panel_settings'
+                        : usuario.rol === 'Soporte'
+                          ? 'support_agent'
+                          : 'person'
+                    }}
+                  </mat-icon>
+
+                  {{ usuario.rol }}
+
+                </span>
+
+              </div>
+
+            </div>
+
+          </mat-card-content>
+
+        </mat-card>
+
+      }
+
+      @empty {
+
+        <p class="mensaje-vacio">
+          No hay registros asociados
+        </p>
+
+      }
+
+    </div>
+
+  }
+
 </section>

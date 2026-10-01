@@ -11,18 +11,32 @@ section {
    ENCABEZADO
    ========================================================= */
 
-section > div:first-child {
+.page-header {
   margin-bottom: 24px;
 }
 
 
 /* =========================================================
-   CONTENEDOR DE TICKETS
+   MENSAJES
    ========================================================= */
 
-section > div:last-child {
+.mensaje-cargando,
+.mensaje-vacio {
+  text-align: center;
+  margin-top: 32px;
+}
+
+
+/* =========================================================
+   GRILLA DE TICKETS
+   ========================================================= */
+
+.tickets-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(300px, 1fr));
+
   gap: 20px;
 }
 
@@ -34,11 +48,37 @@ section > div:last-child {
 mat-card {
   height: 100%;
   box-sizing: border-box;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 
 /* =========================================================
-   TÍTULO DEL TICKET
+   HOVER DE LA TARJETA
+   ========================================================= */
+
+mat-card:hover {
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   ICONO DEL TICKET
+   ========================================================= */
+
+mat-card mat-icon[mat-card-avatar] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #1976d2;
+}
+
+
+/* =========================================================
+   TÍTULO
    ========================================================= */
 
 mat-card-title {
@@ -47,16 +87,144 @@ mat-card-title {
 }
 
 
+mat-card-subtitle {
+  margin-top: 4px;
+}
+
+
 /* =========================================================
    CONTENIDO
    ========================================================= */
 
 mat-card-content {
-  padding-top: 8px;
+  padding-top: 16px;
 }
 
-mat-card-content p {
-  margin: 8px 0;
+
+/* =========================================================
+   DESCRIPCIÓN
+   ========================================================= */
+
+.descripcion {
+  margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   INFORMACIÓN DEL TICKET
+   ========================================================= */
+
+.ticket-info {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 12px;
+
+  padding-top: 16px;
+
+  border-top: 1px solid #e5e7eb;
+}
+
+
+/* =========================================================
+   ELEMENTO DE INFORMACIÓN
+   ========================================================= */
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+
+/* =========================================================
+   ETIQUETAS
+   ========================================================= */
+
+.info-label {
+  font-size: 12px;
+  font-weight: 600;
+
+  color: #64748b;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   ESTADO / PRIORIDAD / FECHA
+   ========================================================= */
+
+.estado,
+.prioridad,
+.fecha {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+.estado mat-icon,
+.prioridad mat-icon,
+.fecha mat-icon {
+  font-size: 18px;
+
+  width: 18px;
+  height: 18px;
+}
+
+
+/* =========================================================
+   ESTADOS
+   ========================================================= */
+
+.estado-pendiente {
+  color: #f59e0b;
+}
+
+
+.estado-proceso {
+  color: #1976d2;
+}
+
+
+.estado-finalizado {
+  color: #16a34a;
+}
+
+
+/* =========================================================
+   PRIORIDADES
+   ========================================================= */
+
+.prioridad-alta {
+  color: #dc2626;
+}
+
+
+.prioridad-media {
+  color: #f59e0b;
+}
+
+
+.prioridad-baja {
+  color: #16a34a;
+}
+
+
+/* =========================================================
+   FECHA
+   ========================================================= */
+
+.fecha {
+  color: #475569;
 }
 
 
@@ -70,7 +238,13 @@ mat-card-content p {
     padding: 16px;
   }
 
-  section > div:last-child {
+
+  .tickets-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .ticket-info {
     grid-template-columns: 1fr;
   }
 

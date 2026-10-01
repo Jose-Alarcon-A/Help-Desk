@@ -11,18 +11,32 @@ section {
    ENCABEZADO
    ========================================================= */
 
-section > div:first-child {
+.page-header {
   margin-bottom: 24px;
 }
 
 
 /* =========================================================
-   CONTENEDOR DE USUARIOS
+   MENSAJES
    ========================================================= */
 
-section > div:last-child {
+.mensaje-cargando,
+.mensaje-vacio {
+  text-align: center;
+  margin-top: 32px;
+}
+
+
+/* =========================================================
+   GRILLA DE USUARIOS
+   ========================================================= */
+
+.usuarios-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(300px, 1fr));
+
   gap: 20px;
 }
 
@@ -34,16 +48,46 @@ section > div:last-child {
 mat-card {
   height: 100%;
   box-sizing: border-box;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 
 /* =========================================================
-   TÍTULO DEL USUARIO
+   HOVER DE LA TARJETA
+   ========================================================= */
+
+mat-card:hover {
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   ICONO DEL USUARIO
+   ========================================================= */
+
+mat-card mat-icon[mat-card-avatar] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #1976d2;
+}
+
+
+/* =========================================================
+   TÍTULO
    ========================================================= */
 
 mat-card-title {
   font-size: 18px;
   font-weight: 500;
+}
+
+mat-card-subtitle {
+  margin-top: 4px;
 }
 
 
@@ -52,11 +96,106 @@ mat-card-title {
    ========================================================= */
 
 mat-card-content {
-  padding-top: 8px;
+  padding-top: 16px;
 }
 
-mat-card-content p {
-  margin: 8px 0;
+
+/* =========================================================
+   INFORMACIÓN DEL USUARIO
+   ========================================================= */
+
+.usuario-info {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 16px;
+
+  padding-top: 16px;
+
+  border-top: 1px solid #e5e7eb;
+}
+
+
+/* =========================================================
+   ELEMENTO DE INFORMACIÓN
+   ========================================================= */
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+
+/* =========================================================
+   ETIQUETAS
+   ========================================================= */
+
+.info-label {
+  font-size: 12px;
+  font-weight: 600;
+
+  color: #64748b;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   CORREO / ROL
+   ========================================================= */
+
+.correo,
+.rol {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   ICONOS
+   ========================================================= */
+
+.correo mat-icon,
+.rol mat-icon {
+  font-size: 18px;
+
+  width: 18px;
+  height: 18px;
+}
+
+
+/* =========================================================
+   CORREO
+   ========================================================= */
+
+.correo {
+  color: #475569;
+}
+
+
+/* =========================================================
+   ROLES
+   ========================================================= */
+
+.rol-administrador {
+  color: #1976d2;
+}
+
+.rol-soporte {
+  color: #16a34a;
+}
+
+.rol-usuario {
+  color: #64748b;
 }
 
 
@@ -70,7 +209,11 @@ mat-card-content p {
     padding: 16px;
   }
 
-  section > div:last-child {
+  .usuarios-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .usuario-info {
     grid-template-columns: 1fr;
   }
 
