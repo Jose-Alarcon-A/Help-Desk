@@ -1,146 +1,123 @@
-<section>
+<section class="usuarios">
 
-  <!-- =====================================================
-       ENCABEZADO
-       ===================================================== -->
+    <div class="encabezado">
 
-  <div class="page-header">
+        <h1>Gestión de Usuarios</h1>
 
-    <h1>Gestión de Usuarios</h1>
-
-    <p>Usuarios registrados en el sistema</p>
-
-  </div>
-
-
-  <!-- =====================================================
-       CARGANDO
-       ===================================================== -->
-
-  @if (cargando()) {
-
-    <p class="mensaje-cargando">
-      Cargando usuarios...
-    </p>
-
-  }
-
-  @else {
-
-    <!-- ===================================================
-         GRILLA DE USUARIOS
-         =================================================== -->
-
-    <div class="usuarios-grid">
-
-      @for (usuario of usuarios(); track usuario.id) {
-
-        <mat-card>
-
-          <!-- =============================================
-               CABECERA DE LA TARJETA
-               ============================================= -->
-
-          <mat-card-header>
-
-            <mat-icon mat-card-avatar>
-              person
-            </mat-icon>
-
-            <mat-card-title>
-              {{ usuario.nombre }}
-            </mat-card-title>
-
-            <mat-card-subtitle>
-              Usuario #{{ usuario.id }}
-            </mat-card-subtitle>
-
-          </mat-card-header>
-
-
-          <!-- =============================================
-               CONTENIDO
-               ============================================= -->
-
-          <mat-card-content>
-
-            <!-- ===========================================
-                 INFORMACIÓN DEL USUARIO
-                 =========================================== -->
-
-            <div class="usuario-info">
-
-
-              <!-- CORREO -->
-
-              <div class="info-item">
-
-                <span class="info-label">
-                  Correo
-                </span>
-
-                <span class="correo">
-
-                  <mat-icon>
-                    email
-                  </mat-icon>
-
-                  {{ usuario.correo }}
-
-                </span>
-
-              </div>
-
-
-              <!-- ROL -->
-
-              <div class="info-item">
-
-                <span class="info-label">
-                  Rol
-                </span>
-
-                <span
-                  class="rol"
-                  [class.rol-administrador]="usuario.rol === 'Administrador'"
-                  [class.rol-soporte]="usuario.rol === 'Soporte'"
-                  [class.rol-usuario]="usuario.rol === 'Usuario'"
-                >
-
-                  <mat-icon>
-                    {{
-                      usuario.rol === 'Administrador'
-                        ? 'admin_panel_settings'
-                        : usuario.rol === 'Soporte'
-                          ? 'support_agent'
-                          : 'person'
-                    }}
-                  </mat-icon>
-
-                  {{ usuario.rol }}
-
-                </span>
-
-              </div>
-
-            </div>
-
-          </mat-card-content>
-
-        </mat-card>
-
-      }
-
-      @empty {
-
-        <p class="mensaje-vacio">
-          No hay registros asociados
+        <p>
+            Usuarios registrados en el sistema
         </p>
-
-      }
 
     </div>
 
-  }
+
+    @if (cargando()) {
+
+        <p class="mensaje">
+            Cargando usuarios...
+        </p>
+
+    }
+
+    @else if (error()) {
+
+        <div class="mensaje error">
+            No fue posible obtener los registros
+        </div>
+
+    }
+
+    @else {
+
+        <div class="tabla-contenedor">
+
+            <table mat-table [dataSource]="dataSource">
+
+
+                <ng-container matColumnDef="id">
+
+                    <th mat-header-cell *matHeaderCellDef>
+                        ID
+                    </th>
+
+                    <td mat-cell *matCellDef="let usuario">
+                        #{{ usuario.id }}
+                    </td>
+
+                </ng-container>
+
+
+                <ng-container matColumnDef="nombre">
+
+                    <th mat-header-cell *matHeaderCellDef>
+                        Nombre
+                    </th>
+
+                    <td mat-cell *matCellDef="let usuario">
+                        {{ usuario.nombre }}
+                    </td>
+
+                </ng-container>
+
+
+                <ng-container matColumnDef="correo">
+
+                    <th mat-header-cell *matHeaderCellDef>
+                        Correo
+                    </th>
+
+                    <td mat-cell *matCellDef="let usuario">
+                        {{ usuario.correo }}
+                    </td>
+
+                </ng-container>
+
+
+                <ng-container matColumnDef="rol">
+
+                    <th mat-header-cell *matHeaderCellDef>
+                        Rol
+                    </th>
+
+                    <td mat-cell *matCellDef="let usuario">
+
+                        <span
+                            class="rol"
+                            [class.rol-administrador]="usuario.rol === 'Administrador'"
+                            [class.rol-soporte]="usuario.rol === 'Soporte'"
+                            [class.rol-usuario]="usuario.rol === 'Usuario'"
+                        >
+                            {{ usuario.rol }}
+                        </span>
+
+                    </td>
+
+                </ng-container>
+
+
+                <tr
+                    mat-header-row
+                    *matHeaderRowDef="columnas">
+                </tr>
+
+
+                <tr
+                    mat-row
+                    *matRowDef="let row; columns: columnas;">
+                </tr>
+
+
+            </table>
+
+
+            <mat-paginator
+                [pageSize]="5"
+                [pageSizeOptions]="[5, 10, 20]"
+                showFirstLastButtons>
+            </mat-paginator>
+
+        </div>
+
+    }
 
 </section>

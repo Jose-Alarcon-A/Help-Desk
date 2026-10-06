@@ -2,7 +2,7 @@
    CONTENEDOR DE LA PÁGINA
    ========================================================= */
 
-section {
+.usuarios {
   padding: 24px;
 }
 
@@ -11,7 +11,7 @@ section {
    ENCABEZADO
    ========================================================= */
 
-.page-header {
+.encabezado {
   margin-bottom: 24px;
 }
 
@@ -20,165 +20,124 @@ section {
    MENSAJES
    ========================================================= */
 
-.mensaje-cargando,
-.mensaje-vacio {
+.mensaje {
   text-align: center;
+
   margin-top: 32px;
 }
 
 
 /* =========================================================
-   GRILLA DE USUARIOS
+   MENSAJE DE ERROR
    ========================================================= */
 
-.usuarios-grid {
-  display: grid;
+.mensaje.error {
+  color: #dc2626;
 
-  grid-template-columns:
-    repeat(auto-fit, minmax(300px, 1fr));
-
-  gap: 20px;
-}
-
-
-/* =========================================================
-   MAT CARD
-   ========================================================= */
-
-mat-card {
-  height: 100%;
-  box-sizing: border-box;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-
-/* =========================================================
-   HOVER DE LA TARJETA
-   ========================================================= */
-
-mat-card:hover {
-  transform: translateY(-2px);
-}
-
-
-/* =========================================================
-   ICONO DEL USUARIO
-   ========================================================= */
-
-mat-card mat-icon[mat-card-avatar] {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: #1976d2;
-}
-
-
-/* =========================================================
-   TÍTULO
-   ========================================================= */
-
-mat-card-title {
-  font-size: 18px;
   font-weight: 500;
 }
 
-mat-card-subtitle {
-  margin-top: 4px;
+
+/* =========================================================
+   CONTENEDOR DE LA TABLA
+   ========================================================= */
+
+.tabla-contenedor {
+  width: 100%;
+
+  overflow-x: auto;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  box-sizing: border-box;
 }
 
 
 /* =========================================================
-   CONTENIDO
+   TABLA
    ========================================================= */
 
-mat-card-content {
-  padding-top: 16px;
+table {
+  width: 100%;
+
+  min-width: 700px;
 }
 
 
 /* =========================================================
-   INFORMACIÓN DEL USUARIO
+   ENCABEZADO DE LA TABLA
    ========================================================= */
 
-.usuario-info {
-  display: grid;
-
-  grid-template-columns:
-    repeat(2, 1fr);
-
-  gap: 16px;
-
-  padding-top: 16px;
-
-  border-top: 1px solid #e5e7eb;
-}
-
-
-/* =========================================================
-   ELEMENTO DE INFORMACIÓN
-   ========================================================= */
-
-.info-item {
-  display: flex;
-  flex-direction: column;
-
-  gap: 6px;
-}
-
-
-/* =========================================================
-   ETIQUETAS
-   ========================================================= */
-
-.info-label {
+th {
   font-size: 12px;
-  font-weight: 600;
-
-  color: #64748b;
+  font-weight: 700;
 
   text-transform: uppercase;
-}
 
-
-/* =========================================================
-   CORREO / ROL
-   ========================================================= */
-
-.correo,
-.rol {
-  display: flex;
-  align-items: center;
-
-  gap: 6px;
-
-  font-size: 14px;
-  font-weight: 500;
-}
-
-
-/* =========================================================
-   ICONOS
-   ========================================================= */
-
-.correo mat-icon,
-.rol mat-icon {
-  font-size: 18px;
-
-  width: 18px;
-  height: 18px;
-}
-
-
-/* =========================================================
-   CORREO
-   ========================================================= */
-
-.correo {
   color: #475569;
+
+  background: #f8fafc;
+}
+
+
+/* =========================================================
+   CELDAS
+   ========================================================= */
+
+td {
+  font-size: 14px;
+
+  color: #475569;
+}
+
+
+/* =========================================================
+   FILAS
+   ========================================================= */
+
+tr.mat-mdc-row {
+  transition: background-color 0.2s ease;
+}
+
+
+/* =========================================================
+   HOVER DE LA FILA
+   ========================================================= */
+
+tr.mat-mdc-row:hover {
+  background: #f8fafc;
+}
+
+
+/* =========================================================
+   ID
+   ========================================================= */
+
+td.mat-column-id {
+  font-weight: 600;
+
+  color: #16961d;
+}
+
+
+/* =========================================================
+   NOMBRE
+   ========================================================= */
+
+td.mat-column-nombre {
+  font-weight: 500;
+
+  color: #1e293b;
+}
+
+/* =========================================================
+   ROL
+   ========================================================= */
+
+.rol {
+  font-weight: 600;
 }
 
 
@@ -198,6 +157,16 @@ mat-card-content {
   color: #64748b;
 }
 
+/* =========================================================
+   PAGINADOR
+   ========================================================= */
+
+mat-paginator {
+  border-top: 1px solid #e2e8f0;
+
+  background: #ffffff;
+}
+
 
 /* =========================================================
    RESPONSIVE
@@ -205,16 +174,8 @@ mat-card-content {
 
 @media (max-width: 600px) {
 
-  section {
+  .usuarios {
     padding: 16px;
-  }
-
-  .usuarios-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .usuario-info {
-    grid-template-columns: 1fr;
   }
 
 }
