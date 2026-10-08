@@ -1,0 +1,140 @@
+/* =========================================================
+   CONTENEDOR DE LA PÁGINA
+   ========================================================= */
+
+.ticket-form {
+  padding: 24px;
+}
+
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.encabezado {
+  margin-bottom: 24px;
+}
+
+
+/* =========================================================
+   CONTENEDOR DEL FORMULARIO
+   ========================================================= */
+
+.formulario-contenedor {
+  width: 100%;
+  max-width: 900px;
+
+  padding: 24px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+}
+
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+
+/* =========================================================
+   CAMPOS
+   ========================================================= */
+
+mat-form-field {
+  width: 100%;
+}
+
+
+/* =========================================================
+   CAMPOS SECUNDARIOS
+   ========================================================= */
+
+.campos-secundarios {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 18px;
+}
+
+
+/* =========================================================
+   ACCIONES
+   ========================================================= */
+
+.acciones {
+  display: flex;
+
+  justify-content: flex-end;
+  align-items: center;
+
+  gap: 12px;
+
+  padding-top: 18px;
+
+  border-top: 1px solid #e2e8f0;
+}
+
+
+/* =========================================================
+   BOTONES
+   ========================================================= */
+
+.acciones button {
+  min-width: 110px;
+}
+
+
+/* =========================================================
+   ICONO DEL BOTÓN
+   ========================================================= */
+
+.acciones button mat-icon {
+  margin-right: 6px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .ticket-form {
+    padding: 16px;
+  }
+
+
+  .formulario-contenedor {
+    padding: 16px;
+  }
+
+
+  .campos-secundarios {
+    grid-template-columns: 1fr;
+  }
+
+
+  .acciones {
+    flex-direction: column-reverse;
+
+    align-items: stretch;
+  }
+
+
+  .acciones button {
+    width: 100%;
+  }
+
+}
+

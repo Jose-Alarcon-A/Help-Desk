@@ -1,46 +1,39 @@
 import { Routes } from '@angular/router';
 
-import { Reportes } from './pages/reportes/reportes';
-import { Kanban } from './pages/kanban/kanban';
-import { Tickets } from './pages/tickets/tickets';
 import { Dashboard } from './pages/dashboard/dashboard';
-import { Error404 } from './pages/error404/error404';
-import { Acerca } from './pages/acerca/acerca';
-import { Usuarios} from './pages/usuarios/usuarios';
+import { Tickets } from './pages/tickets/tickets';
+import { TicketForm } from './pages/ticket-form/ticket-form';
+import { Kanban } from './pages/kanban/kanban';
+import { Reportes } from './pages/reportes/reportes';
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
-  },
-  {
-    path: 'dashboard',
-     component: Dashboard
-  },
-  {
-    path: 'tickets',
-    component: Tickets
-  },
-  {
-    path: 'usuarios',
-    component: Usuarios
-  },
-  {
-    path: 'kanban',
-    component: Kanban
-  },
-  {
-    path: 'reportes',
-    component: Reportes
-  },
-  {
-    path: 'acerca',
-    component: Acerca
-  },
-  {
-    path: '**',
-    component: Error404
-  }
+    {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+    },
+    {
+        path: 'dashboard',
+        component: Dashboard
+    },
+    {
+        path: 'tickets',
+        component: Tickets
+    },
+    {
+        path: 'tickets/nuevo',
+        component: TicketForm
+    },
+    {
+        path: 'kanban',
+        component: Kanban
+    },
+    {
+        path: 'reportes',
+        component: Reportes
+    },
+    {
+        path: '**',
+        component: Dashboard
+    }
 ];
-

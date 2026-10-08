@@ -119,6 +119,14 @@
       "estado": "Cerrado",
       "prioridad": "Baja",
       "fechaCreacion": "2026-09-20"
+    },
+    {
+      "asunto": "testsetsetset",
+      "descripcion": "estetststset",
+      "estado": "Abierto",
+      "prioridad": "Baja",
+      "fechaCreacion": "2026-10-08",
+      "id": "4I5pQvoD2Hg"
     }
   ],
   "usuarios": [
@@ -194,5 +202,6 @@
       "correo": "carlos.lopez@gmail.com",
       "rol": "Usuario"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

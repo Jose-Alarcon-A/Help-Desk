@@ -10,7 +10,6 @@
 
 </mat-toolbar>
 
-
 <mat-sidenav-container class="layout">
 
   <mat-sidenav mode="side" opened class="sidebar">
@@ -31,7 +30,6 @@
 
     </div>
 
-
     <!-- ===================================================
          TÍTULO DEL MENÚ
          =================================================== -->
@@ -39,7 +37,6 @@
     <div class="menu-titulo">
       Menú Principal
     </div>
-
 
     <!-- ===================================================
          MENÚ
@@ -61,21 +58,59 @@
         </span>
       </a>
 
+      <!-- ===================================================
+           MENÚ TICKETS (CON SUBMENÚ)
+           =================================================== -->
 
-      <a
-        mat-list-item
-        routerLink="/tickets"
-        routerLinkActive="activo"
-      >
-        <mat-icon matListItemIcon>
-          confirmation_number
-        </mat-icon>
+      <div class="menu-grupo">
 
-        <span matListItemTitle>
-          Tickets
-        </span>
-      </a>
+        <button
+          type="button"
+          mat-list-item
+          class="menu-padre"
+          [class.abierto]="menuTicketsAbierto()"
+          (click)="alternarMenuTickets()"
+        >
+          <mat-icon
+            matListItemIcon
+            class="icono-ticket"
+            [class.abierto]="menuTicketsAbierto()"
+          >
+            confirmation_number
+          </mat-icon>
 
+          <span matListItemTitle>
+            Tickets
+          </span>
+        </button>
+
+        @if (menuTicketsAbierto()) {
+
+          <a
+            mat-list-item
+            class="submenu-item"
+            routerLink="/tickets"
+            routerLinkActive="activo"
+          >
+            <span matListItemTitle>
+              Listado de tickets
+            </span>
+          </a>
+
+          <a
+            mat-list-item
+            class="submenu-item"
+            routerLink="/tickets/nuevo"
+            routerLinkActive="activo"
+          >
+            <span matListItemTitle>
+              Nuevo Ticket
+            </span>
+          </a>
+
+        }
+
+      </div>
 
       <a
         mat-list-item
@@ -91,7 +126,6 @@
         </span>
       </a>
 
-
       <a
         mat-list-item
         routerLink="/kanban"
@@ -106,7 +140,6 @@
         </span>
       </a>
 
-
       <a
         mat-list-item
         routerLink="/reportes"
@@ -120,7 +153,6 @@
           Reportes
         </span>
       </a>
-
 
       <a
         mat-list-item
@@ -139,7 +171,6 @@
     </mat-nav-list>
 
   </mat-sidenav>
-
 
   <mat-sidenav-content>
 
