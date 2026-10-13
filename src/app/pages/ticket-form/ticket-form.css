@@ -2,10 +2,10 @@
    CONTENEDOR DE LA PÁGINA
    ========================================================= */
 
-.ticket-form {
+.ticket-form-page {
   padding: 24px;
+  box-sizing: border-box;
 }
-
 
 /* =========================================================
    ENCABEZADO
@@ -15,58 +15,60 @@
   margin-bottom: 24px;
 }
 
-
 /* =========================================================
-   CONTENEDOR DEL FORMULARIO
+   FORMULARIO
    ========================================================= */
 
-.formulario-contenedor {
+.formulario {
   width: 100%;
   max-width: 900px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 
   padding: 24px;
 
   box-sizing: border-box;
 
   background: #ffffff;
-
   border: 1px solid #e2e8f0;
 }
 
-
 /* =========================================================
-   FORMULARIO
+   CAMPOS DEL FORMULARIO
    ========================================================= */
 
-form {
-  display: flex;
-  flex-direction: column;
-
-  gap: 18px;
-}
-
-
-/* =========================================================
-   CAMPOS
-   ========================================================= */
-
-mat-form-field {
+.formulario mat-form-field {
   width: 100%;
 }
 
-
 /* =========================================================
-   CAMPOS SECUNDARIOS
+   ESTADO Y PRIORIDAD
    ========================================================= */
 
-.campos-secundarios {
+.fila {
   display: grid;
-
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 
   gap: 18px;
 }
 
+/* =========================================================
+   MENSAJE DE ERROR
+   ========================================================= */
+
+.error-guardado {
+  padding: 12px 16px;
+
+  border-left: 4px solid #dc2626;
+
+  background: #fef2f2;
+  color: #b91c1c;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
 
 /* =========================================================
    ACCIONES
@@ -74,7 +76,6 @@ mat-form-field {
 
 .acciones {
   display: flex;
-
   justify-content: flex-end;
   align-items: center;
 
@@ -85,15 +86,13 @@ mat-form-field {
   border-top: 1px solid #e2e8f0;
 }
 
-
 /* =========================================================
    BOTONES
    ========================================================= */
 
 .acciones button {
-  min-width: 110px;
+  min-width: 130px;
 }
-
 
 /* =========================================================
    ICONO DEL BOTÓN
@@ -103,38 +102,31 @@ mat-form-field {
   margin-right: 6px;
 }
 
-
 /* =========================================================
    RESPONSIVE
    ========================================================= */
 
 @media (max-width: 600px) {
 
-  .ticket-form {
+  .ticket-form-page {
     padding: 16px;
   }
 
-
-  .formulario-contenedor {
+  .formulario {
     padding: 16px;
   }
 
-
-  .campos-secundarios {
-    grid-template-columns: 1fr;
+  .fila {
+    grid-template-columns: minmax(0, 1fr);
   }
-
 
   .acciones {
     flex-direction: column-reverse;
-
     align-items: stretch;
   }
-
 
   .acciones button {
     width: 100%;
   }
 
 }
-
