@@ -18,6 +18,8 @@ import {
   MatPaginatorModule
 } from '@angular/material/paginator';
 
+import { MatIconModule } from '@angular/material/icon';
+
 import { Ticket } from '../../models/ticket';
 import { TicketService } from '../../services/ticket';
 
@@ -25,6 +27,7 @@ import { TicketService } from '../../services/ticket';
 @Component({
   selector: 'app-tickets',
   imports: [
+    MatIconModule,
     MatTableModule,
     MatPaginatorModule,
     DatePipe
@@ -39,7 +42,8 @@ export class Tickets implements OnInit {
     'asunto',
     'estado',
     'prioridad',
-    'fechaCreacion'
+    'fechaCreacion',
+    'acciones'
   ];
 
   dataSource = new MatTableDataSource<Ticket>();
@@ -52,13 +56,14 @@ export class Tickets implements OnInit {
 
   error = signal(false);
 
+  eliminandoId = signal<string | null>(null);
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
 
   ngOnInit(): void {
     this.cargarTickets();
   }
-
 
   cargarTickets(): void {
 
@@ -91,5 +96,28 @@ export class Tickets implements OnInit {
     });
 
   }
+
+  eliminarTicket(ticket: Ticket): void {
+    const confirmado = confirm(`¿Estás seguro de eliminar ticket ${ticket.asunto}?`);
+
+    if(!confirmado){
+      return;
+    }
+
+    this.eliminandoId.set(ticket.id);
+
+    this.ticketService.eliminarTicekt(ticket.id).subscribe({
+      next: () => {
+        this.eliminandoId.set(null);
+        this.cargarTickets();
+      },
+      error: (error) => {
+        console.error('Error al eliminar el ticket', error);
+        this.eliminandoId.set(null);
+      }
+    });
+
+  }
+
 
 }

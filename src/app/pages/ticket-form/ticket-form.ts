@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Ticket } from '../../models/ticket';
 import { TicketService } from '../../services/ticket';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-ticket-form',
@@ -15,14 +16,20 @@ import { TicketService } from '../../services/ticket';
   templateUrl: './ticket-form.html',
   styleUrl: './ticket-form.css'
 })
-export class TicketForm {
+export class TicketForm implements OnInit{
 
   private fb = inject(FormBuilder);
   private ticketService = inject(TicketService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   guardando = signal(false);
   errorGuardado = signal(false);
+  modoEdicion = signal(false);
+  cargando = signal(false);
+  errorCargado = signal(false);
+
+  ticketId: string | null = null;
 
   ticketForm = this.fb.group({
     asunto: [
@@ -53,6 +60,41 @@ export class TicketForm {
       Validators.required
     ]
   });
+
+  ngOnInit() : void {
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if(id !== null) {
+      this.ticketId = id;
+      this.modoEdicion.set(true);
+
+      this.cargarTicket(this.ticketId);
+    }
+  }
+
+  cargarTicket(id: string):void {
+    this.cargando.set(true);
+    this.errorCargado.set(false);
+
+    this.ticketService.obtenerTicket(id).subscribe({
+      next: (ticket) => {
+        this.ticketForm.patchValue({
+          asunto: ticket.asunto,
+          descripcion: ticket.descripcion,
+          estado: ticket.estado,
+          prioridad: ticket.prioridad
+        });
+        this.cargando.set(false);
+      },
+
+      error: (error) => {
+        console.error("Error al cargar el ticket:", error);
+        this.errorCargado.set(true);
+        this.cargando.set(false);
+      }
+    });
+  }
+
 
   guardar(): void {
 
