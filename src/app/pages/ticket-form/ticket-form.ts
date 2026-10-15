@@ -23,9 +23,11 @@ export class TicketForm implements OnInit{
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
+  modoEdicion = signal(false);
+
   guardando = signal(false);
   errorGuardado = signal(false);
-  modoEdicion = signal(false);
+
   cargando = signal(false);
   errorCargado = signal(false);
 
@@ -94,7 +96,6 @@ export class TicketForm implements OnInit{
       }
     });
   }
-
 
   guardar(): void {
 

@@ -22,6 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { Ticket } from '../../models/ticket';
 import { TicketService } from '../../services/ticket';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
@@ -30,8 +31,9 @@ import { TicketService } from '../../services/ticket';
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
-    DatePipe
-  ],
+    DatePipe,
+    RouterLink
+],
   styleUrl: './tickets.css',
   templateUrl: './tickets.html',
 })
