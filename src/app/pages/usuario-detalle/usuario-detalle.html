@@ -1,0 +1,66 @@
+<section class="detalle-page">
+
+    @if (cargando()) {
+        <div class="mensaje">
+            Cargando usuario...
+        </div>
+    }
+    @else if (error()) {
+        <div class="mensaje error">
+            <mat-icon>error_outline</mat-icon>
+            <h2>Usuario no encontrado</h2>
+        </div>
+        <a mat-stroked-button routerLink="/usuarios">
+            <mat-icon>arrow_back</mat-icon>
+            Volver a Listado de usuarios
+        </a>
+    }
+    @else if (usuario(); as usuarioActual) {
+        <div class="navegacion">
+            <a mat-stroked-button routerLink="/usuarios">
+                <mat-icon>arrow_back</mat-icon>
+                Volver a Listado de usuarios
+            </a>
+        </div>
+
+        <article class="usuario-card">
+            <header class="usuario-header">
+                <div>
+                    <span class="usuario-id">Usuario #{{ usuarioActual.id }}</span>
+                    <h1>
+                        {{ usuarioActual.nombre }}
+                    </h1>
+                </div>
+                <a mat-flat-button [routerLink]="['/usuarios/editar', usuarioActual.id]">
+                    <mat-icon>edit</mat-icon>
+                    Editar
+                </a>
+            </header>
+            <div class="resumen">
+                <div class="dato">
+                    <span class="etiqueta">
+                        Rol
+                    </span>
+
+                    <span class="rol"
+                    [class.rol-administrador]="usuarioActual.rol === 'Administrador'"
+                    [class.rol-soporte]="usuarioActual.rol === 'Soporte'"
+                    [class.rol-usuario]="usuarioActual.rol === 'Usuario'">
+                        {{ usuarioActual.rol }}
+                    </span>
+                </div>
+
+                <div class="dato">
+                    <span class="etiqueta">
+                        Correo
+                    </span>
+
+                    <span class="valor">
+                        {{ usuarioActual.correo }}
+                    </span>
+                </div>
+            </div>
+        </article>
+    }
+
+</section>

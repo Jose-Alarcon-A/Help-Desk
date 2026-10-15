@@ -30,4 +30,10 @@ export class App {
   protected alternarMenuTickets(): void {
     this.menuTicketsAbierto.update((abierto) => !abierto);
   }
+
+  protected readonly menuUsuariosAbierto = signal(false);
+
+  protected alternarMenuUsuarios(): void {
+    this.menuUsuariosAbierto.update((abierto) => !abierto);
+  }
 }

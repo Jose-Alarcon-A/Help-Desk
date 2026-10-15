@@ -108,7 +108,7 @@ export class Tickets implements OnInit {
 
     this.eliminandoId.set(ticket.id);
 
-    this.ticketService.eliminarTicekt(ticket.id).subscribe({
+    this.ticketService.eliminarTicket(ticket.id).subscribe({
       next: () => {
         this.eliminandoId.set(null);
         this.cargarTickets();

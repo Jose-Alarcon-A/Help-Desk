@@ -27,7 +27,7 @@ export class TicketService {
         return this.http.put<Ticket>(`${this.apiUrl}/${id}`, ticket);
     }
 
-    eliminarTicekt(id: string):Observable<void> {
+    eliminarTicket(id: string):Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
 

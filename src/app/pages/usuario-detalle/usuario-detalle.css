@@ -1,0 +1,250 @@
+/* =========================================================
+   CONTENEDOR DE LA PÁGINA
+   ========================================================= */
+
+.detalle-page {
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   NAVEGACIÓN
+   ========================================================= */
+
+.navegacion {
+  margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   TARJETA DEL USUARIO
+   ========================================================= */
+
+.usuario-card {
+  width: 100%;
+  max-width: 1000px;
+
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   ENCABEZADO DEL USUARIO
+   ========================================================= */
+
+.usuario-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  gap: 24px;
+
+  padding: 24px;
+}
+
+
+/* =========================================================
+   IDENTIFICADOR
+   ========================================================= */
+
+.usuario-id {
+  display: inline-block;
+
+  margin-bottom: 8px;
+
+  color: #16961d;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   NOMBRE DEL USUARIO
+   ========================================================= */
+
+.usuario-header h1 {
+  margin: 0;
+
+  color: #1e293b;
+  overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   RESUMEN DEL USUARIO
+   ========================================================= */
+
+.resumen {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 24px;
+
+  padding: 24px;
+
+  background: #f8fafc;
+
+  border-top: 1px solid #e2e8f0;
+}
+
+
+/* =========================================================
+   DATOS
+   ========================================================= */
+
+.dato {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 10px;
+
+  min-width: 0;
+}
+
+
+/* =========================================================
+   ETIQUETAS
+   ========================================================= */
+
+.etiqueta {
+  color: #64748b;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+
+/* =========================================================
+   VALORES
+   ========================================================= */
+
+.valor {
+  color: #334155;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   ROL
+   ========================================================= */
+
+.rol {
+  display: inline-block;
+
+  padding: 5px 10px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  border-radius: 4px;
+}
+
+
+/* =========================================================
+   ROLES
+   ========================================================= */
+
+.rol-administrador {
+  color: #1d4ed8;
+  background: #dbeafe;
+}
+
+.rol-soporte {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.rol-usuario {
+  color: #475569;
+  background: #f1f5f9;
+}
+
+
+/* =========================================================
+   MENSAJES DE CARGA Y ERROR
+   ========================================================= */
+
+.mensaje {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  max-width: 1000px;
+
+  padding: 32px 24px;
+
+  color: #64748b;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.mensaje.error {
+  justify-content: flex-start;
+
+  margin-bottom: 12px;
+
+  color: #b91c1c;
+
+  background: #fef2f2;
+
+  border-left: 4px solid #dc2626;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .detalle-page {
+    padding: 16px;
+  }
+
+  .usuario-header {
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 16px;
+
+    padding: 20px;
+  }
+
+  .usuario-header a {
+    align-self: flex-start;
+  }
+
+  .resumen {
+    grid-template-columns: 1fr;
+
+    gap: 20px;
+
+    padding: 20px;
+  }
+
+  .mensaje.error {
+    align-items: flex-start;
+  }
+
+}

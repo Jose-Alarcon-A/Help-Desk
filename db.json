@@ -187,12 +187,6 @@
       "nombre": "María García",
       "correo": "maria.garcia@gmail.com",
       "rol": "Soporte"
-    },
-    {
-      "id": "12",
-      "nombre": "Carlos López",
-      "correo": "carlos.lopez@gmail.com",
-      "rol": "Usuario"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

@@ -1,0 +1,141 @@
+<section class="usuario-form-page">
+
+  <div class="encabezado">
+    <h1>
+      @if (modoEdicion()) {
+        Editar Usuario #{{ usuarioId }}
+      } @else {
+        Nuevo Usuario
+      }
+    </h1>
+    <p>
+      @if (modoEdicion()) {
+        Modificación de datos del usuario.
+      } @else {
+        Registra un nuevo usuario en el sistema.
+      }
+      </p>
+  </div>
+
+  @if (cargando()) {
+    <div class="mensaje-cargando">
+      Cargando Usuario...
+    </div>
+  }
+  @else if (errorCargado()) {
+    <div class="error-cargado">
+      No fue posible cargar el usuario.
+    </div>
+  }
+  @else {
+
+    <form
+      class="formulario"
+      [formGroup]="usuarioForm"
+      (ngSubmit)="guardar()">
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>Nombre</mat-label>
+
+        <input
+          matInput
+          type="text"
+          formControlName="nombre">
+
+        @if (usuarioForm.controls.nombre.hasError('required')) {
+          <mat-error>
+            El nombre es obligatorio.
+          </mat-error>
+        }
+
+        @if (usuarioForm.controls.nombre.hasError('minlength')) {
+          <mat-error>
+            El nombre debe tener al menos 5 caracteres.
+          </mat-error>
+        }
+
+        @if (usuarioForm.controls.nombre.hasError('maxlength')) {
+          <mat-error>
+            El nombre no puede superar los 100 caracteres.
+          </mat-error>
+        }
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>Correo</mat-label>
+
+        <input
+          matInput
+          type="email"
+          formControlName="correo">
+
+        @if (usuarioForm.controls.correo.hasError('required')) {
+          <mat-error>
+            El correo es obligatorio.
+          </mat-error>
+        }
+
+        @if (usuarioForm.controls.correo.hasError('email')) {
+          <mat-error>
+            El correo no es válido.
+          </mat-error>
+        }
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>Rol</mat-label>
+
+        <mat-select formControlName="rol">
+          <mat-option value="Administrador">Administrador</mat-option>
+          <mat-option value="Soporte">Soporte</mat-option>
+          <mat-option value="Usuario">Usuario</mat-option>
+        </mat-select>
+
+      </mat-form-field>
+
+      @if (errorGuardado()) {
+        <div class="error-guardado">
+          @if(modoEdicion()) {
+            No fue posible actualizar el usuario.
+          } @else {
+            No fue posible crear el usuario.
+          }
+        </div>
+      }
+
+      <div class="acciones">
+
+        <button
+          mat-stroked-button
+          type="button"
+          (click)="cancelar()">
+          Cancelar
+        </button>
+
+        <button
+          mat-flat-button
+          type="submit"
+          [disabled]="guardando()">
+
+          <mat-icon>save</mat-icon>
+
+          @if (guardando()) {
+            Guardando...
+          } @else if (modoEdicion()) {
+            Guardar Cambios
+          } @else {
+            Crear Usuario
+          }
+
+        </button>
+
+      </div>
+
+    </form>
+  }
+</section>

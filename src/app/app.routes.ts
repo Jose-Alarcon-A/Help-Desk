@@ -7,6 +7,8 @@ import { Kanban } from './pages/kanban/kanban';
 import { Reportes } from './pages/reportes/reportes';
 import { Error404 } from './pages/error404/error404';
 import { Usuarios } from './pages/usuarios/usuarios';
+import { UsuarioForm } from './pages/usuario-form/usuario-form';
+import { UsuarioDetalle } from './pages/usuario-detalle/usuario-detalle';
 
 export const routes: Routes = [
   {
@@ -37,6 +39,18 @@ export const routes: Routes = [
   {
     path: 'usuarios',
     component: Usuarios
+  },
+  {
+    path: 'usuarios/nuevo',
+    component: UsuarioForm
+  },
+  {
+    path: 'usuarios/editar/:id',
+    component: UsuarioForm
+  },
+  {
+    path: 'usuarios/:id',
+    component: UsuarioDetalle
   },
   {
     path: 'kanban',

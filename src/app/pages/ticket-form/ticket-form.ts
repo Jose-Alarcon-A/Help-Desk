@@ -33,6 +33,8 @@ export class TicketForm implements OnInit{
 
   ticketId: string | null = null;
 
+  fechaCreacionOriginal: string | null = null;
+
   ticketForm = this.fb.group({
     asunto: [
       '',
@@ -86,6 +88,7 @@ export class TicketForm implements OnInit{
           estado: ticket.estado,
           prioridad: ticket.prioridad
         });
+        this.fechaCreacionOriginal = ticket.fechaCreacion;
         this.cargando.set(false);
       },
 
@@ -114,8 +117,28 @@ export class TicketForm implements OnInit{
       descripcion: valores.descripcion ?? '',
       estado: valores.estado ?? 'Abierto',
       prioridad: valores.prioridad ?? 'Media',
-      fechaCreacion: new Date().toISOString().split('T')[0]
+      fechaCreacion: this.modoEdicion() && this.fechaCreacionOriginal !== null
+        ? this.fechaCreacionOriginal
+        : new Date().toISOString().split('T')[0]
     };
+
+    if (this.modoEdicion() && this.ticketId !== null) {
+
+      this.ticketService.actualizarTicket(this.ticketId, nuevoTicket).subscribe({
+        next: () => {
+          this.guardando.set(false);
+          this.router.navigate(['/tickets']);
+        },
+
+        error: (error) => {
+          console.error('Error al actualizar el ticket:', error);
+          this.errorGuardado.set(true);
+          this.guardando.set(false);
+        }
+      });
+
+      return;
+    }
 
     this.ticketService.crearTicket(nuevoTicket).subscribe({
       next: () => {

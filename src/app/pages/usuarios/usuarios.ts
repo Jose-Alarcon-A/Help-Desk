@@ -16,15 +16,20 @@ import {
   MatPaginatorModule
 } from '@angular/material/paginator';
 
+import { MatIconModule } from '@angular/material/icon';
+
 import { Usuario } from '../../models/usuario';
 import { UsuarioService } from '../../services/usuario';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-usuarios',
   imports: [
+    MatIconModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    RouterLink
   ],
   templateUrl: './usuarios.html',
   styleUrl: './usuarios.css',
@@ -35,7 +40,8 @@ export class Usuarios implements OnInit {
     'id',
     'nombre',
     'correo',
-    'rol'
+    'rol',
+    'acciones'
   ];
 
   dataSource = new MatTableDataSource<Usuario>();
@@ -47,6 +53,8 @@ export class Usuarios implements OnInit {
   cargando = signal(true);
 
   error = signal(false);
+
+  eliminandoId = signal<string | null>(null);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -87,5 +95,28 @@ export class Usuarios implements OnInit {
     });
 
   }
+
+  eliminarUsuario(usuario: Usuario): void {
+    const confirmado = confirm(`¿Estás seguro de eliminar el usuario ${usuario.nombre}?`);
+
+    if(!confirmado){
+      return;
+    }
+
+    this.eliminandoId.set(usuario.id);
+
+    this.usuarioService.eliminarUsuario(usuario.id).subscribe({
+      next: () => {
+        this.eliminandoId.set(null);
+        this.cargarUsuarios();
+      },
+      error: (error) => {
+        console.error('Error al eliminar el usuario', error);
+        this.eliminandoId.set(null);
+      }
+    });
+
+  }
+
 
 }
