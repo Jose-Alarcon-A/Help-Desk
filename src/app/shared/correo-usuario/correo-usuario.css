@@ -1,0 +1,14 @@
+:host
+{
+  display: inline-block;
+}
+
+.correo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  color: rgb(10, 10, 10);
+  padding: 12px;
+}

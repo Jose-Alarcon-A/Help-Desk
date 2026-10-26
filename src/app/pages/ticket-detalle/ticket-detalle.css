@@ -138,64 +138,6 @@
   font-weight: 500;
 }
 
-
-/* =========================================================
-   ESTADO Y PRIORIDAD
-   ========================================================= */
-
-.estado,
-.prioridad {
-  display: inline-block;
-
-  padding: 5px 10px;
-
-  font-size: 13px;
-  font-weight: 600;
-
-  border-radius: 4px;
-}
-
-
-/* =========================================================
-   ESTADOS
-   ========================================================= */
-
-.estado.abierto {
-  color: #92400e;
-  background: #fef3c7;
-}
-
-.estado.proceso {
-  color: #1d4ed8;
-  background: #dbeafe;
-}
-
-.estado.cerrado {
-  color: #166534;
-  background: #dcfce7;
-}
-
-
-/* =========================================================
-   PRIORIDADES
-   ========================================================= */
-
-.prioridad.alta {
-  color: #b91c1c;
-  background: #fee2e2;
-}
-
-.prioridad.media {
-  color: #92400e;
-  background: #fef3c7;
-}
-
-.prioridad.baja {
-  color: #166534;
-  background: #dcfce7;
-}
-
-
 /* =========================================================
    DESCRIPCIÓN
    ========================================================= */

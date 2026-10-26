@@ -21,6 +21,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { Usuario } from '../../models/usuario';
 import { UsuarioService } from '../../services/usuario';
 import { RouterLink } from '@angular/router';
+import { RolUsuario } from '../../shared/rol-usuario/rol-usuario';
+import { CorreoUsuario } from '../../shared/correo-usuario/correo-usuario';
+import { DialogoService } from '../../shared/dialogo/dialogo.service';
 
 
 @Component({
@@ -29,8 +32,10 @@ import { RouterLink } from '@angular/router';
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
-    RouterLink
-  ],
+    RouterLink,
+    RolUsuario,
+    CorreoUsuario
+],
   templateUrl: './usuarios.html',
   styleUrl: './usuarios.css',
 })
@@ -47,6 +52,8 @@ export class Usuarios implements OnInit {
   dataSource = new MatTableDataSource<Usuario>();
 
   private usuarioService = inject(UsuarioService);
+
+  private dialogo = inject(DialogoService);
 
   usuarios = signal<Usuario[]>([]);
 
@@ -97,12 +104,17 @@ export class Usuarios implements OnInit {
   }
 
   eliminarUsuario(usuario: Usuario): void {
-    const confirmado = confirm(`¿Estás seguro de eliminar el usuario ${usuario.nombre}?`);
+    this.dialogo.confirm(
+      'Eliminar usuario',
+      `¿Estás seguro de eliminar el usuario ${usuario.nombre}?`,
+      {
+        textoConfirmar: 'Eliminar',
+        aceptar: () => this.eliminar(usuario)
+      }
+    );
+  }
 
-    if(!confirmado){
-      return;
-    }
-
+  private eliminar(usuario: Usuario): void {
     this.eliminandoId.set(usuario.id);
 
     this.usuarioService.eliminarUsuario(usuario.id).subscribe({
@@ -113,9 +125,9 @@ export class Usuarios implements OnInit {
       error: (error) => {
         console.error('Error al eliminar el usuario', error);
         this.eliminandoId.set(null);
+        this.dialogo.error('Error', 'No fue posible eliminar el usuario. Intente nuevamente.');
       }
     });
-
   }
 
 

@@ -39,7 +39,7 @@
                     </th>
 
                     <td mat-cell *matCellDef="let ticket">
-                        #{{ ticket.id }}
+                        #<app-id-ticket [id]="ticket.id"></app-id-ticket>
                     </td>
 
                 </ng-container>
@@ -64,14 +64,8 @@
 
                     <td mat-cell *matCellDef="let ticket">
 
-                        <span
-                            class="estado"
-                            [class.estado-abierto]="ticket.estado === 'Abierto'"
-                            [class.estado-proceso]="ticket.estado === 'En proceso'"
-                            [class.estado-cerrado]="ticket.estado === 'Cerrado'"
-                        >
-                            {{ ticket.estado }}
-                        </span>
+                        <app-estado-ticket  [estado]="ticket.estado">
+                        </app-estado-ticket>
 
                     </td>
 
@@ -85,14 +79,8 @@
 
                     <td mat-cell *matCellDef="let ticket">
 
-                        <span
-                            class="prioridad"
-                            [class.prioridad-alta]="ticket.prioridad === 'Alta'"
-                            [class.prioridad-media]="ticket.prioridad === 'Media'"
-                            [class.prioridad-baja]="ticket.prioridad === 'Baja'"
-                        >
-                            {{ ticket.prioridad }}
-                        </span>
+                        <app-prioridad-ticket  [prioridad]="ticket.prioridad">
+                        </app-prioridad-ticket>
 
                     </td>
 
@@ -118,17 +106,7 @@
 
                     <td mat-cell *matCellDef="let ticket">
 
-                      <button mat-icon-button [routerLink]="['/tickets/editar', ticket.id]" [disabled]="ticket.estado === 'Cerrado'" aria-label="Editar Ticket">
-                        <mat-icon>edit </mat-icon>
-                      </button>
-
-                      <button mat-icon-button type="button" class="eliminar" [disabled]="eliminandoId() === ticket.id" (click)="eliminarTicket(ticket)" aria-label="Eliminar ticket">
-                        <mat-icon>delete</mat-icon>
-                      </button>
-
-                      <a mat-icon-button [routerLink]="['/tickets', ticket.id]" aria-label="Ver Detalle">
-                        <mat-icon>visibility</mat-icon>
-                      </a>
+                      <app-acciones-ticket [ticket]="ticket" [eliminando]="eliminandoId() === ticket.id" (eliminar)="eliminar($event)"></app-acciones-ticket>
 
                     </td>
 

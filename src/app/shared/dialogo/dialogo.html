@@ -1,0 +1,35 @@
+<div class="dialogo {{ data.tipo }}">
+    <div class="icono">
+        <mat-icon>{{ icono() }}</mat-icon>
+    </div>
+
+    <h2 mat-dialog-title>
+        {{ data.titulo }}
+    </h2>
+
+    <mat-dialog-content>
+        <p>
+            {{ data.mensaje }}
+        </p>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="center">
+        @if (data.tipo === 'confirm') {
+            <button mat-stroked-button type="button" (click)="cancelar()">
+                {{ data.textoCancelar ?? 'Cancelar' }}
+            </button>
+
+            <button mat-flat-button type="button" class="confirmar" (click)="confirmar()">
+                {{ data.textoConfirmar ?? 'Aceptar' }}
+            </button>
+        } @else if (data.tipo === 'info') {
+            <button mat-flat-button type="button" (click)="cerrar()">
+                {{ data.textoCerrar ?? 'Cerrar' }}
+            </button>
+        } @else {
+            <button mat-flat-button type="button" class="aceptar" (click)="cerrar()">
+                {{ data.textoAceptar ?? 'Aceptar' }}
+            </button>
+        }
+    </mat-dialog-actions>
+</div>

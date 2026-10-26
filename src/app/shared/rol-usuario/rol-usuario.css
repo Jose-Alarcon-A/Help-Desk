@@ -1,0 +1,29 @@
+:host {
+  display: inline-block;
+}
+.rol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 78px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.rol.rol-administrador {
+    background-color: #fee2e2;
+    color: #d81d26;
+}
+
+.rol.rol-soporte {
+    background-color: #fef3c7;
+    color: #d3c229;
+}
+
+.rol.rol-usuario {
+    background-color: #dcfce7;
+    color: #15803d;
+}

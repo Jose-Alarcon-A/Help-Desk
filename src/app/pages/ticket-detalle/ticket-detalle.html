@@ -45,12 +45,8 @@
                         Estado
                     </span>
 
-                    <span class="estado"
-                    [class.abierto]="ticketActual.estado === 'Abierto'"
-                    [class.proceso]="ticketActual.estado === 'En proceso'"
-                    [class.cerrado]="ticketActual.estado === 'Cerrado'">
-                        {{ ticketActual.estado }}
-                    </span>
+                    <app-estado-ticket  [estado]="ticketActual.estado">
+                    </app-estado-ticket>
                 </div>
 
                 <div class="dato">
@@ -58,12 +54,8 @@
                         Prioridad
                     </span>
 
-                    <span class="prioridad"
-                    [class.alta]="ticketActual.prioridad === 'Alta'"
-                    [class.media]="ticketActual.prioridad === 'Media'"
-                    [class.baja]="ticketActual.prioridad === 'Baja'">
-                        {{ ticketActual.prioridad }}
-                    </span>
+                    <app-prioridad-ticket  [prioridad]="ticketActual.prioridad">
+                    </app-prioridad-ticket>
                 </div>
 
                 <div class="dato">

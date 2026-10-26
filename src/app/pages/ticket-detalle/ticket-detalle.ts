@@ -5,6 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TicketService } from '../../services/ticket';
 import { Ticket } from '../../models/ticket';
+import { EstadoTicket } from '../../shared/estado-ticket/estado-ticket';
+import { PrioridadTicket } from '../../shared/prioridad-ticket/prioridad-ticket';
 
 @Component({
   selector: 'app-ticket-detalle',
@@ -12,7 +14,9 @@ import { Ticket } from '../../models/ticket';
     DatePipe,
     MatButtonModule,
     MatIconModule,
-    RouterLink
+    RouterLink,
+    EstadoTicket,
+    PrioridadTicket
   ],
   templateUrl: './ticket-detalle.html',
   styleUrl: './ticket-detalle.css',

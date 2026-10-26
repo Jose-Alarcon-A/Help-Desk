@@ -1,0 +1,92 @@
+:host {
+    display: inline-block;
+}
+
+.dialogo {
+    min-width: 360px;
+    padding-top: 10px;
+}
+
+.icono {
+    display: flex;
+    justify-content: center;
+    padding-top: 12px;
+}
+
+.icono mat-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 48px;
+}
+
+.info .icono mat-icon {
+    color: #2563eb;
+}
+
+.error .icono mat-icon {
+    color: #dc2626;
+}
+
+.warn .icono mat-icon {
+    color: #d97706;
+}
+
+.confirm .icono mat-icon {
+    color: #2563eb;
+}
+
+h2 {
+    margin: 8px 0 0;
+    color: #0f172a;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+}
+
+mat-dialog-content p {
+    margin: 0;
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+mat-dialog-actions {
+    gap: 10px;
+    padding: 16px 24px 22px;
+    border-top: 1px solid #e2e8f0;
+}
+
+mat-dialog-actions button {
+    min-width: 105px;
+    height: 40px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.error .aceptar {
+    background-color: #dc2626;
+    color: #ffffff;
+}
+
+.error .aceptar:hover {
+    background-color: #b91c1c;
+}
+
+.warn .aceptar {
+    background-color: #d97706;
+    color: #ffffff;
+}
+
+.warn .aceptar:hover {
+    background-color: #b45309;
+}
+
+.confirm .confirmar {
+    background-color: #2563eb;
+    color: #ffffff;
+}
+
+.confirm .confirmar:hover {
+    background-color: #1d4ed8;
+}

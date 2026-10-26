@@ -1,0 +1,6 @@
+<span class="rol"
+  [class.rol-administrador]="rol() === 'Administrador'"
+  [class.rol-soporte]="rol() === 'Soporte'"
+  [class.rol-usuario]="rol() === 'Usuario'">
+   {{ rol() }}
+</span>
