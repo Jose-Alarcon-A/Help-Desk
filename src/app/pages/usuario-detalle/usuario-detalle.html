@@ -42,12 +42,8 @@
                         Rol
                     </span>
 
-                    <span class="rol"
-                    [class.rol-administrador]="usuarioActual.rol === 'Administrador'"
-                    [class.rol-soporte]="usuarioActual.rol === 'Soporte'"
-                    [class.rol-usuario]="usuarioActual.rol === 'Usuario'">
-                        {{ usuarioActual.rol }}
-                    </span>
+                    <app-rol-usuario [rol]="usuarioActual.rol">
+                    </app-rol-usuario>
                 </div>
 
                 <div class="dato">

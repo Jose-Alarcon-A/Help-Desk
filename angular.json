@@ -28,7 +28,8 @@
               "src/material-theme.scss",
               "src/styles.css",
               "src/app/Styles/textos.css",
-              "src/app/Styles/layout.css"
+              "src/app/Styles/layout.css",
+              "src/app/Styles/tabla.css"
             ]
           },
           "configurations": {

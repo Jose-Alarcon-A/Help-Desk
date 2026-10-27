@@ -16,25 +16,22 @@ import {
   MatPaginatorModule
 } from '@angular/material/paginator';
 
-import { MatIconModule } from '@angular/material/icon';
-
 import { Usuario } from '../../models/usuario';
 import { UsuarioService } from '../../services/usuario';
-import { RouterLink } from '@angular/router';
 import { RolUsuario } from '../../shared/rol-usuario/rol-usuario';
 import { CorreoUsuario } from '../../shared/correo-usuario/correo-usuario';
+import { AccionesUsuario } from '../../shared/acciones-usuario/acciones-usuario';
 import { DialogoService } from '../../shared/dialogo/dialogo.service';
 
 
 @Component({
   selector: 'app-usuarios',
   imports: [
-    MatIconModule,
     MatTableModule,
     MatPaginatorModule,
-    RouterLink,
     RolUsuario,
-    CorreoUsuario
+    CorreoUsuario,
+    AccionesUsuario
 ],
   templateUrl: './usuarios.html',
   styleUrl: './usuarios.css',
@@ -55,15 +52,18 @@ export class Usuarios implements OnInit {
 
   private dialogo = inject(DialogoService);
 
-  usuarios = signal<Usuario[]>([]);
-
   cargando = signal(true);
 
   error = signal(false);
 
   eliminandoId = signal<string | null>(null);
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator)
+  set paginator(paginator: MatPaginator) {
+    if (paginator) {
+      this.dataSource.paginator = paginator;
+    }
+  }
 
 
   ngOnInit(): void {
@@ -72,26 +72,22 @@ export class Usuarios implements OnInit {
 
 
   cargarUsuarios(): void {
+    this.cargando.set(true);
+    this.error.set(false);
 
     this.usuarioService.obtenerUsuarios().subscribe({
 
       next: (datos) => {
 
-        this.usuarios.set(datos);
-
         this.dataSource.data = datos;
 
         this.cargando.set(false);
-
-        setTimeout(() => {
-          this.dataSource.paginator = this.paginator;
-        });
 
       },
 
       error: (error) => {
 
-        console.error('Error al obtener los usuarios');
+        console.error('Error al obtener los usuarios', error);
 
         this.error.set(true);
 

@@ -13,10 +13,19 @@ describe('PrioridadTicket', () => {
 
     fixture = TestBed.createComponent(PrioridadTicket);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('prioridad', 'Alta');
     await fixture.whenStable();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('renderiza la prioridad con su clase correspondiente', () => {
+    const span = (fixture.nativeElement as HTMLElement)
+      .querySelector('span.prioridad');
+
+    expect(span?.textContent?.trim()).toBe('Alta');
+    expect(span?.classList.contains('alta')).toBe(true);
   });
 });

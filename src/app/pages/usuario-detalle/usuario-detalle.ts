@@ -4,13 +4,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { UsuarioService } from '../../services/usuario';
 import { Usuario } from '../../models/usuario';
+import { RolUsuario } from '../../shared/rol-usuario/rol-usuario';
 
 @Component({
   selector: 'app-usuario-detalle',
   imports: [
     MatButtonModule,
     MatIconModule,
-    RouterLink
+    RouterLink,
+    RolUsuario
   ],
   templateUrl: './usuario-detalle.html',
   styleUrl: './usuario-detalle.css',

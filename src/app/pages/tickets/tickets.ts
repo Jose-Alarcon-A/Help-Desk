@@ -97,6 +97,7 @@ export class Tickets implements OnInit {
       error: (error) => {
         console.error('Error al intentar eliminar el ticket:', error);
         this.eliminandoId.set(null);
+        this.dialogo.error('Error', 'No fue posible eliminar el ticket. Intente nuevamente.');
       }
     });
   }

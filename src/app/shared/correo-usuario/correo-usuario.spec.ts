@@ -13,10 +13,18 @@ describe('CorreoUsuario', () => {
 
     fixture = TestBed.createComponent(CorreoUsuario);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('correo', 'ana.perez@correo.com');
     await fixture.whenStable();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('renderiza el correo recibido', () => {
+    const span = (fixture.nativeElement as HTMLElement)
+      .querySelector('span.correo');
+
+    expect(span?.textContent?.trim()).toBe('ana.perez@correo.com');
   });
 });
