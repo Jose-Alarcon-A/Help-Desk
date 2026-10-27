@@ -79,22 +79,6 @@
       "estado": "Abierto",
       "prioridad": "Media",
       "fechaCreacion": "2026-10-01"
-    },
-    {
-      "id": "11",
-      "asunto": "Error al generar resumen",
-      "descripcion": "Durante el proceso de generacion del resumen, el sistema se demora y luego un error aparece en pantalla.",
-      "estado": "En proceso",
-      "prioridad": "Baja",
-      "fechaCreacion": "2026-09-30"
-    },
-    {
-      "id": "12",
-      "asunto": "Problema de impresión",
-      "descripcion": "Al intentar imprimir un documento, la impresora no responde y el sistema muestra un mensaje de error.",
-      "estado": "Cerrado",
-      "prioridad": "Alta",
-      "fechaCreacion": "2026-09-20"
     }
   ],
   "usuarios": [

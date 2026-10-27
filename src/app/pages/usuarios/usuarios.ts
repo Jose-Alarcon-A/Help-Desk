@@ -105,6 +105,7 @@ export class Usuarios implements OnInit {
       `¿Estás seguro de eliminar el usuario ${usuario.nombre}?`,
       {
         textoConfirmar: 'Eliminar',
+        variante: 'warn',
         aceptar: () => this.eliminar(usuario)
       }
     );
@@ -117,6 +118,7 @@ export class Usuarios implements OnInit {
       next: () => {
         this.eliminandoId.set(null);
         this.cargarUsuarios();
+        this.dialogo.info('Eliminado', 'El usuario fue eliminado correctamente.');
       },
       error: (error) => {
         console.error('Error al eliminar el usuario', error);

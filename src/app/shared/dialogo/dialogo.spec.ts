@@ -92,6 +92,17 @@ describe('Dialogo', () => {
     expect(botones()[1].textContent?.trim()).toBe('Eliminar');
   });
 
+  it('confirm con variante warn muestra el icono warning_amber y mantiene ambos botones', async () => {
+    await crearDialogo('confirm', { variante: 'warn' });
+
+    const elemento = fixture.nativeElement as HTMLElement;
+
+    expect(elemento.querySelector('.dialogo.confirm.warn')).toBeTruthy();
+    expect(botones().length).toBe(2);
+    expect(botones()[1].textContent?.trim()).toBe('Aceptar');
+    expect(elemento.querySelector('.icono mat-icon')?.textContent?.trim()).toBe('warning_amber');
+  });
+
   it('confirmar cierra el diálogo con true', async () => {
     await crearDialogo('confirm');
 
@@ -170,6 +181,12 @@ describe('DialogoService', () => {
 
     expect(ultimaLlamada().data.tipo).toBe('confirm');
     expect(ultimaLlamada().disableClose).toBe(true);
+  });
+
+  it('confirm pasa la variante al data del diálogo', () => {
+    service.confirm('Confirmar', '¿Continuar?', { variante: 'warn' });
+
+    expect(ultimaLlamada().data.variante).toBe('warn');
   });
 
   it('confirm ejecuta aceptar al confirmar', () => {

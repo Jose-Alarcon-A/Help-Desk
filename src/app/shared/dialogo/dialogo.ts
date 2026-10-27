@@ -21,7 +21,19 @@ export class Dialogo {
   data = inject<DialogoData>(MAT_DIALOG_DATA);
   private dialogRef = inject(MatDialogRef<Dialogo, boolean>);
 
-  icono = computed(() => iconos[this.data.tipo]);
+  icono = computed(() =>
+    this.data.variante === 'warn' ? 'warning_amber' : iconos[this.data.tipo]
+  );
+
+  clases = computed(() => {
+    const clases = ['dialogo', this.data.tipo];
+
+    if (this.data.variante === 'warn') {
+      clases.push('warn');
+    }
+
+    return clases.join(' ');
+  });
 
   cancelar(): void {
     this.dialogRef.close(false);

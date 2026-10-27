@@ -8,6 +8,7 @@ export interface DialogoData {
     textoAceptar?: string;
     textoConfirmar?: string;
     textoCancelar?: string;
+    variante?: 'warn';
 }
 
 export interface DialogoConfirmOptions {
@@ -15,4 +16,5 @@ export interface DialogoConfirmOptions {
     cancelar?: () => void;
     textoConfirmar?: string;
     textoCancelar?: string;
+    variante?: 'warn';
 }

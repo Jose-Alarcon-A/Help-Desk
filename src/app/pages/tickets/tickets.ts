@@ -81,6 +81,7 @@ export class Tickets implements OnInit {
       '¿Está seguro que desea eliminar el ticket?',
       {
         textoConfirmar: 'Eliminar',
+        variante: 'warn',
         aceptar: () => this.eliminarTicket(ticket)
       }
     );
@@ -93,6 +94,7 @@ export class Tickets implements OnInit {
       next: () => {
         this.eliminandoId.set(null);
         this.cargarTickets();
+        this.dialogo.info('Eliminado', 'El ticket fue eliminado correctamente.');
       },
       error: (error) => {
         console.error('Error al intentar eliminar el ticket:', error);

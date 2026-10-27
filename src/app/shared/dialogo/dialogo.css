@@ -90,3 +90,12 @@ mat-dialog-actions button {
 .confirm .confirmar:hover {
     background-color: #1d4ed8;
 }
+
+.warn .confirmar {
+    background-color: #d97706;
+    color: #ffffff;
+}
+
+.warn .confirmar:hover {
+    background-color: #b45309;
+}

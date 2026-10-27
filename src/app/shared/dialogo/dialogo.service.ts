@@ -38,7 +38,7 @@ export class DialogoService {
     tipo: TipoDialogo,
     titulo: string,
     mensaje: string,
-    textos: Partial<Pick<DialogoData, 'textoCerrar' | 'textoAceptar' | 'textoConfirmar' | 'textoCancelar'>> = {}
+    textos: Partial<Pick<DialogoData, 'textoCerrar' | 'textoAceptar' | 'textoConfirmar' | 'textoCancelar' | 'variante'>> = {}
   ): MatDialogRef<Dialogo> {
     return this.dialog.open(Dialogo, {
       width: '430px',
