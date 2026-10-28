@@ -1,4 +1,7 @@
-<mat-card class="ticket-card">
+<mat-card class="ticket-card"
+  [class.pri-alta]="ticket().prioridad === 'Alta'"
+  [class.pri-media]="ticket().prioridad === 'Media'"
+  [class.pri-baja]="ticket().prioridad === 'Baja'">
     <div class="ticket-superior">
         <span class="ticket-id">
             Ticket #{{ ticket().id }}

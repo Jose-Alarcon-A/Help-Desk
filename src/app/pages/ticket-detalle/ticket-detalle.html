@@ -23,7 +23,10 @@
             </a>
         </div>
 
-        <article class="ticket-card">
+        <article class="ticket-card"
+          [class.pri-alta]="ticketActual.prioridad === 'Alta'"
+          [class.pri-media]="ticketActual.prioridad === 'Media'"
+          [class.pri-baja]="ticketActual.prioridad === 'Baja'">
             <header class="ticket-header">
                 <div>
                     <span class="ticket-id">Ticket #{{ ticketActual.id }}</span>

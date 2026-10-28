@@ -14,16 +14,19 @@
 }
 
 .prioridad.alta {
-    background-color: #fee2e2;
-    color: #d81d26;
+    background-color: var(--pri-alta-bg);
+    color: var(--pri-alta-texto);
+    border: 1px solid var(--pri-alta-borde);
 }
 
 .prioridad.media {
-    background-color: #fef3c7;
-    color: #d3c229;
+    background-color: var(--pri-media-bg);
+    color: var(--pri-media-texto);
+    border: 1px solid var(--pri-media-borde);
 }
 
 .prioridad.baja {
-    background-color: #dcfce7;
-    color: #15803d;
+    background-color: var(--pri-baja-bg);
+    color: var(--pri-baja-texto);
+    border: 1px solid var(--pri-baja-borde);
 }

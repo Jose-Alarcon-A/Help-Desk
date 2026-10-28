@@ -14,16 +14,19 @@
 }
 
 .estado.abierto {
-    background-color: #dbeafe;
-    color: #1d4ed8;
+    background-color: var(--est-abierto-bg);
+    color: var(--est-abierto-texto);
+    border: 1px solid var(--est-abierto-borde);
 }
 
 .estado.proceso {
-    background-color: #fef3c7;
-    color: #a16207;
+    background-color: var(--est-proceso-bg);
+    color: var(--est-proceso-texto);
+    border: 1px solid var(--est-proceso-borde);
 }
 
 .estado.cerrado {
-    background-color: #dcfce7;
-    color: #15803d;
+    background-color: var(--est-cerrado-bg);
+    color: var(--est-cerrado-texto);
+    border: 1px solid var(--est-cerrado-borde);
 }

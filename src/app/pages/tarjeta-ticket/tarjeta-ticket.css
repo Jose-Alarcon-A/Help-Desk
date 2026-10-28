@@ -4,9 +4,22 @@
 
 .ticket-card {
     padding: 14px;
+    border-radius: 12px;
     border-left: 4px solid #94a3b8;
     background-color: #fff;
-    box-shadow: 0 1px rgb(15 23 42 / 10%);
+    box-shadow: 0 4px 6px -1px rgb(15 23 42 / 0.1);
+}
+
+.ticket-card.pri-alta {
+    border-left-color: var(--pri-alta-borde);
+}
+
+.ticket-card.pri-media {
+    border-left-color: var(--pri-media-borde);
+}
+
+.ticket-card.pri-baja {
+    border-left-color: var(--pri-baja-borde);
 }
 
 .ticket-superior {
@@ -26,24 +39,28 @@
 .prioridad {
   padding: 4px 9px;
   font-size: 12px;
-  border-radius: 999;
+  border-radius: 999px;
   font-weight: 600;
   white-space: nowrap;
+  border: 1px solid;
 }
 
 .prioridad-baja {
-  color: #166534;
-  background-color: #dcfce7;
+  color: var(--pri-baja-texto);
+  background-color: var(--pri-baja-bg);
+  border-color: var(--pri-baja-borde);
 }
 
 .prioridad-media {
-  color: #9a3412;
-  background-color: #ffedd5;
+  color: var(--pri-media-texto);
+  background-color: var(--pri-media-bg);
+  border-color: var(--pri-media-borde);
 }
 
 .prioridad-alta {
-  color: #991b1b;
-  background-color: #fee2e2;
+  color: var(--pri-alta-texto);
+  background-color: var(--pri-alta-bg);
+  border-color: var(--pri-alta-borde);
 }
 
 .ticket-asunto {

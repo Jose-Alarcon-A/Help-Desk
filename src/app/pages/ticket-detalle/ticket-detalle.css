@@ -27,8 +27,22 @@
 
   background: #ffffff;
   border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgb(15 23 42 / 0.1);
 
   box-sizing: border-box;
+}
+
+.ticket-card.pri-alta {
+  border-left: 4px solid var(--pri-alta-borde);
+}
+
+.ticket-card.pri-media {
+  border-left: 4px solid var(--pri-media-borde);
+}
+
+.ticket-card.pri-baja {
+  border-left: 4px solid var(--pri-baja-borde);
 }
 
 
