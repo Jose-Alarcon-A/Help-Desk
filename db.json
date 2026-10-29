@@ -3,18 +3,18 @@
     {
       "asunto": "Problema de Acceso  444",
       "descripcion": "AL intentar acceder al sistema, aparecio un error en pantalla.",
-      "estado": "Abierto",
+      "estado": "Cerrado",
       "prioridad": "Alta",
       "fechaCreacion": "2026-10-11",
       "id": "1"
     },
     {
-      "id": "2",
       "asunto": "Error al generar resumen",
       "descripcion": "Durante el proceso de generacion del resumen, el sistema se demora y luego un error aparece en pantalla.",
-      "estado": "En proceso",
+      "estado": "Abierto",
       "prioridad": "Media",
-      "fechaCreacion": "2025-09-30"
+      "fechaCreacion": "2025-09-30",
+      "id": "2"
     },
     {
       "id": "3",
@@ -33,12 +33,12 @@
       "id": "4"
     },
     {
-      "id": "5",
       "asunto": "Error al generar resumen",
       "descripcion": "Durante el proceso de generacion del resumen, el sistema se demora y luego un error aparece en pantalla.",
-      "estado": "En proceso",
+      "estado": "Abierto",
       "prioridad": "Alta",
-      "fechaCreacion": "2026-09-30"
+      "fechaCreacion": "2026-09-30",
+      "id": "5"
     },
     {
       "id": "6",
@@ -49,28 +49,28 @@
       "fechaCreacion": "2026-09-20"
     },
     {
-      "id": "7",
       "asunto": "Problema de Acceso",
       "descripcion": "AL intentar acceder al sistema, aparecio un error en pantalla.",
-      "estado": "Abierto",
+      "estado": "En proceso",
       "prioridad": "Alta",
-      "fechaCreacion": "2026-10-01"
+      "fechaCreacion": "2026-10-01",
+      "id": "7"
     },
     {
-      "id": "8",
       "asunto": "Error al generar resumen",
       "descripcion": "Durante el proceso de generacion del resumen, el sistema se demora y luego un error aparece en pantalla.",
       "estado": "En proceso",
       "prioridad": "Media",
-      "fechaCreacion": "2026-09-30"
+      "fechaCreacion": "2026-09-30",
+      "id": "8"
     },
     {
-      "id": "9",
       "asunto": "Problema de impresión",
       "descripcion": "Al intentar imprimir un documento, la impresora no responde y el sistema muestra un mensaje de error.",
-      "estado": "Cerrado",
+      "estado": "En proceso",
       "prioridad": "Baja",
-      "fechaCreacion": "2026-09-20"
+      "fechaCreacion": "2026-09-20",
+      "id": "9"
     },
     {
       "asunto": "Problema de Acceso",
