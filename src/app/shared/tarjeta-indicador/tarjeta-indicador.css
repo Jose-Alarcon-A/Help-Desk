@@ -1,0 +1,195 @@
+:host {
+  display: block;
+}
+
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 320px;
+
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgb(15 23 42 / 0.08);
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.tarjeta:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 8px 16px -4px rgb(15 23 42 / 0.12);
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   VARIANTES DE COLOR (ACENTO IZQUIERDO)
+   ========================================================= */
+
+.tarjeta.principal {
+  border-left: 4px solid #16961d;
+}
+
+.tarjeta.azul {
+  border-left: 4px solid #2563eb;
+}
+
+.tarjeta.ambar {
+  border-left: 4px solid #d97706;
+}
+
+.tarjeta.verde {
+  border-left: 4px solid #16a34a;
+}
+
+.tarjeta.roja {
+  border-left: 4px solid #dc2626;
+}
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.tarjeta-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.tarjeta-encabezado h3 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  flex: 1;
+}
+
+.tarjeta-icono {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+
+  font-size: 18px;
+  color: #64748b;
+}
+
+/* =========================================================
+   CIFRA
+   ========================================================= */
+
+.tarjeta-cifra {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+
+  padding: 16px;
+}
+
+.tarjeta-cifra strong {
+  font-size: 34px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1;
+}
+
+.tarjeta-unidad {
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+/* =========================================================
+   DESCRIPCIÓN
+   ========================================================= */
+
+.tarjeta-descripcion {
+  margin: 0;
+
+  padding: 0 16px 12px;
+
+  font-size: 13px;
+  font-weight: 400;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   APOYO (FOOTER)
+   ========================================================= */
+
+.tarjeta-apoyo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  padding: 10px 16px;
+  border-top: 1px solid #f1f5f9;
+
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  background: #f8fafc;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* =========================================================
+   VARIANTES DE COLOR EN ICONO Y ACENTO
+   ========================================================= */
+
+.tarjeta.azul .tarjeta-icono {
+  background: #dbeafe;
+  border-color: #bfdbfe;
+  color: #2563eb;
+}
+
+.tarjeta.ambar .tarjeta-icono {
+  background: #fef3c7;
+  border-color: #fde68a;
+  color: #d97706;
+}
+
+.tarjeta.verde .tarjeta-icono {
+  background: #dcfce7;
+  border-color: #bbf7d0;
+  color: #16a34a;
+}
+
+.tarjeta.roja .tarjeta-icono {
+  background: #fee2e2;
+  border-color: #fecaca;
+  color: #dc2626;
+}
+
+.tarjeta.principal .tarjeta-icono {
+  background: #dcfce7;
+  border-color: #bbf7d0;
+  color: #16961d;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 640px) {
+  .tarjeta {
+    max-width: 100%;
+  }
+
+  .tarjeta-cifra strong {
+    font-size: 28px;
+  }
+}
