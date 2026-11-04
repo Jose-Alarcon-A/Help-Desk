@@ -60,3 +60,110 @@ td.mat-column-asunto {
   }
 
 }
+/**FILTROS**/
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.filtro-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 140px;
+  padding: 10px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 1px 3px -1px rgb(15 23 42 / 6%);
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.filtro-item:focus-within,
+.filtro-item:hover {
+  border-color: #2563eb;
+  box-shadow: 0 4px 12px -2px rgb(37 99 235 / 0.12);
+  transform: translateY(-1px);
+}
+
+.filtro-item mat-form-field {
+  width: 100%;
+  margin: 0;
+}
+
+.filtro-item .mat-mdc-form-field {
+  width: 100%;
+}
+
+.filtro-item .mat-mdc-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+.filtro-item .mat-mdc-form-field-flex {
+  padding-top: 0;
+  padding-bottom: 0;
+  align-items: center;
+}
+
+.filtro-item .mat-mdc-text-field-wrapper input,
+.filtro-item .mat-mdc-select {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.filtro-item .mat-mdc-form-field-outline {
+  display: none;
+}
+
+.filtro-item .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+.filtro-item .mat-mdc-text-field-wrapper {
+  background-color: transparent;
+}
+
+.btn-limpiar-filtros {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background-color: #f8fafc;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.btn-limpiar-filtros:hover {
+  background-color: #fef3c7;
+  border-color: #d97706;
+  color: #92400e;
+}
+
+@media (max-width: 600px) {
+  .filtros {
+    gap: 16px;
+  }
+
+  .filtro-item {
+    min-width: 120px;
+    padding: 10px 14px;
+  }
+
+  .btn-limpiar-filtros {
+    width: 100%;
+    justify-content: center;
+  }
+}
