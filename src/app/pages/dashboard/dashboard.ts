@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Ticket } from '../../models/ticket';
 import { TicketService } from '../../services/ticket';
 import { TarjetaIndicador } from '../../shared/tarjeta-indicador/tarjeta-indicador';
+import { GraficoTickets, type SerieTickets } from '../../shared/grafico-tickets/grafico-tickets';
 
 type FiltroPrioridad = Ticket['prioridad'] | 'Todas';
 
@@ -17,7 +18,7 @@ interface ResumenTickets {
   altaPendientes: number;
 }
 @Component({
-  imports: [TarjetaIndicador, DecimalPipe, FormsModule, MatButtonModule],
+  imports: [TarjetaIndicador, DecimalPipe, FormsModule, MatButtonModule, GraficoTickets],
   selector: 'app-dashboard',
   styleUrl: './dashboard.css',
   templateUrl: './dashboard.html',
@@ -85,6 +86,74 @@ export class Dashboard implements OnInit {
 
     return resumen.abiertos + resumen.cerrados;
   });
+
+  // clase 10-11-2026
+  readonly serieEstados = computed<SerieTickets[]>(() => {
+    const resumen = this.resumen();
+
+    return [
+      { etiqueta: 'Abiertos', cantidad: resumen.abiertos, color: '#2e4edf' },
+      { etiqueta: 'En proceso', cantidad: resumen.enProceso, color: '#ff9800' },
+      { etiqueta: 'Cerrados', cantidad: resumen.cerrados, color: '#4caf50' }
+    ];
+  });
+
+  readonly serieCierre = computed<SerieTickets[]>(() => [
+      { etiqueta: 'Pendientes',
+        cantidad: this.pendientes(), color: '#2563eb'
+      },
+      { etiqueta: 'Cerrados',
+        cantidad: this.resumen().cerrados, color: '#b45309'
+      }
+    ]
+  );
+
+  //Tarea1 Clase
+  readonly seriePendientesPorPrioridad = computed<SerieTickets[]>(() => {
+  const tickets = this.ticketsFiltrados();
+
+  const contar = (prioridad: Ticket['prioridad']) =>
+    tickets.filter(t =>
+      t.prioridad === prioridad &&
+      (t.estado === 'Abierto' || t.estado === 'En proceso')
+    ).length;
+
+    return [
+      { etiqueta: 'Baja',   cantidad: contar('Baja'),   color: '#4caf50' },
+      { etiqueta: 'Media',  cantidad: contar('Media'),  color: '#ff9800' },
+      { etiqueta: 'Alta',   cantidad: contar('Alta'),   color: '#f44336' }
+    ];
+  });
+  //Tarea2 Clase
+  readonly totalPendientes = computed(() => {
+    const r = this.resumen();
+    return r.abiertos + r.enProceso;
+  });
+
+  readonly serieComposicionPendiente = computed<SerieTickets[]>(() => {
+    const r = this.resumen();
+    return [
+      { etiqueta: 'Abiertos', cantidad: r.abiertos, color: '#2e4edf' },
+      { etiqueta: 'En proceso', cantidad: r.enProceso, color: '#ff9800' }
+    ];
+  });
+
+//Tarea3 clase
+  readonly serieTicketsPorDia = computed<SerieTickets[]>(() => {
+    const tickets = this.ticketsFiltrados();
+
+    const porDia = new Map<string, number>();
+    for (const t of tickets) {
+      porDia.set(t.fechaCreacion, (porDia.get(t.fechaCreacion) ?? 0) + 1);
+    }
+
+    return Array.from(porDia.entries())
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([fecha, cantidad]) => ({ etiqueta: fecha, cantidad, color: '#2e4edf' }));
+  });
+
+// clase 10-11-2026
+
 
   readonly porcentajeCerrados = computed(() => {
     const resumen = this.resumen();

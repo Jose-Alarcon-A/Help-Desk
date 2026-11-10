@@ -45,7 +45,7 @@
 }
 
 /* =========================================================
-   TARJETA (sobreescritura suave para dashboard)
+   TARJETA (ancho completo en el grid)
    ========================================================= */
 
 .metricas .tarjeta {
@@ -80,4 +80,295 @@
     grid-template-columns: 1fr;
     gap: 16px;
   }
+}
+
+/* =========================================================
+   CABECERA DEL DASHBOARD
+   ========================================================= */
+
+.cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px 24px 16px;
+  margin-bottom: 24px;
+
+  border-bottom: 1px solid #e2e8f0;
+
+  background: #ffffff;
+  box-shadow: 0 1px 3px -1px rgb(15 23 42 / 6%);
+}
+
+.cabecera > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  flex: 1;
+}
+
+#titulo-dashboard {
+  margin: 0;
+
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.4px;
+}
+
+.alcance {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 4px 10px;
+  margin-top: 2px;
+
+  border-radius: 6px;
+
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.boton-actualizar {
+  height: 38px;
+  padding: 0 18px;
+
+  border: 1px solid #2563eb;
+  border-radius: 8px;
+
+  background: #ffffff;
+  color: #2563eb;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.boton-actualizar:hover:not(:disabled) {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.boton-actualizar:disabled {
+  border-color: #cbd5e1;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   MENSAJES DE ESTADO
+   ========================================================= */
+
+.aviso {
+  display: flex;
+  align-items: center;
+
+  padding: 14px 24px;
+  margin: 16px 0;
+
+  border-radius: 8px;
+
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #64748b;
+
+  color: #475569;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.aviso-error {
+  background: #fef2f2;
+  border-color: #fecaca;
+  border-left-color: #dc2626;
+
+  color: #b91c1c;
+}
+
+/* =========================================================
+   PANEL DE FILTROS
+   ========================================================= */
+
+.filtros {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  padding: 20px 24px;
+  margin-bottom: 24px;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+
+  background: #ffffff;
+  box-shadow: 0 1px 3px -1px rgb(15 23 42 / 6%);
+}
+
+.campo-filtro {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  min-width: 180px;
+}
+
+.campo-filtro label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.campo-filtro select {
+  flex: 1;
+
+  min-height: 36px;
+  padding: 6px 10px;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+
+  background: #ffffff;
+  color: #0f172a;
+
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.campo-filtro select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 0.12);
+}
+
+/* =========================================================
+   CONTEXTO DE FILTRO
+   ========================================================= */
+
+.filtro-contexto {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  flex-wrap: wrap;
+}
+
+.filtro-contexto strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.filtro-contexto button {
+  height: 36px;
+  padding: 0 16px;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+
+  background: #f8fafc;
+  color: #475569;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.filtro-contexto button:hover:not(:disabled) {
+  background: #fef3c7;
+  border-color: #d97706;
+  color: #92400e;
+}
+
+.filtro-contexto button:disabled {
+  border-color: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   RESPONSIVE CABECERA Y FILTROS
+   ========================================================= */
+
+@media (max-width: 640px) {
+  .cabecera {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 16px 16px 12px;
+  }
+
+  .cabecera > div {
+    gap: 2px;
+  }
+
+  .boton-actualizar {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .filtros {
+    padding: 16px;
+  }
+
+  .filtro-contexto {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .filtro-contexto button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* =========================================================
+   NOTA INFERIOR
+   ========================================================= */
+
+.nota {
+  display: block;
+
+  padding: 16px 20px;
+  margin-top: 24px;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+
+  background: #ffffff;
+  box-shadow: 0 1px 3px -1px rgb(15 23 42 / 6%);
+
+  color: #64748b;
+
+  font-size: 13px;
+  line-height: 1.5;
+
+  box-sizing: border-box;
 }

@@ -1,130 +1,177 @@
 <section class="dashboard" aria-labelledby="titulo-dashboard">
-    <header class="cabecera">
-        <div>
-            <span class="sobre-titulo">Sistema Help Desk</span>
+  <header class="cabecera">
+    <div>
+      <h1 id="titulo-dashboard">Dashboard de Indicadores</h1>
+      <span class="alcance">{{ alcance() }}</span>
+    </div>
+    <button
+      class="boton-actualizar"
+      mat-stroked-button
+      type="button"
+      [disabled]="cargando()"
+      (click)="cargarTickets()">
+      {{ cargando() ? 'Actualizando' : 'Actualizar datos' }}
+    </button>
+  </header>
 
-            <h1 id="titulo-dashboard">Dashboard de indicadores</h1>
-
-            <span class="alcance">{{ alcance() }}</span>
-        </div>
-
+  @if (cargando()) {
+    <p class="aviso" role="status">Cargando indicadores</p>
+  } @else if (errorCarga()) {
+    <p class="aviso aviso-error" role="alert">{{ errorCarga() }}</p>
+  } @else {
+    <section class="filtros" aria-label="Filtro del daskboard">
+      <div class="campo-filtro">
+        <label for="prioridad-dashboard">Prioridad</label>
+        <select
+          id="prioridad-dashboard"
+          [ngModel]="prioridadSeleccionada()"
+          (ngModelChange)="cambiarPrioridad($event)">
+          @for (prioridad of opcionesProridad; track prioridad) {
+            <option [value]="prioridad">{{ prioridad }}</option>
+          }
+        </select>
+      </div>
+      <p class="filtro-contexto">
+        <strong>{{ resumen().total }}</strong> de {{ tickets().length }} tickets incluidos.
         <button
-            class="boton-actualizar"
-            mat-stroked-button
-            type="button"
-            [disabled]="cargando()"
-            (click)="cargarTickets()">
-            {{ cargando() ? 'Actualizando' : 'Actualizar datos' }}
+          mat-stroked-button
+          type="button"
+          [disabled]="prioridadSeleccionada() === 'Todas'"
+          (click)="limpiarFiltro()">
+          Ver Todas
         </button>
-    </header>
+      </p>
+    </section>
 
-    @if (cargando()) {
-        <p class="aviso" role="status">Cargando indicadores</p>
-    } @else if (errorCarga()) {
-        <p class="aviso aviso-error" role="alert">{{ errorCarga() }}</p>
+    @if (resumen().total === 0) {
+      <p class="aviso" role="status">No hay tickets registrados.</p>
     } @else {
-        <section class="filtros" aria-label="Filtro del daskboard">
-            <div class="campo-filtro">
-                <label for="prioridad-dashboard">Prioridad</label>
-                <select
-                    id="prioridad-dashboard"
-                    [ngModel]="prioridadSeleccionada()"
-                    (ngModelChange)="cambiarPrioridad($event)">
-
-                    @for (prioridad of opcionesProridad; track prioridad) {
-                        <option [value]="prioridad">{{ prioridad }}</option>
-                    }
-                </select>
-            </div>
-
-            <p class="filtro-contexto">
-                <strong>{{ resumen().total }}</strong> de {{ tickets().length }} tickets incluidos.
-
-                <button
-                    mat-stroked-button
-                    type="button"
-                    [disabled]="prioridadSeleccionada() === 'Todas'"
-                    (click)="limpiarFiltro()">
-                    Ver todas
-                </button>
-            </p>
-        </section>
-
-        @if (resumen().total === 0) {
-            <p class="aviso" role="status">No hay tickets registrados.</p>
-        } @else {
-            <p class="aviso" role="status">No hay tickets con la prioridad seleccionada.</p>
-        }
-
-        <div class="titulo-seccion">
-            <h2>Estado general</h2>
-            <span>{{ alcance() }}</span>
-        </div>
-
-        <section class="metricas" aria-label="Indicadores por estado">
-            <app-tarjeta-indicador
-                titulo="Total de tickets"
-                [valor]="resumen().total"
-                descripcion="Tickets del conjunto seleccionado"
-                apoyo="Incluye todos los estados"
-                icono="confirmation_number"
-                variante="principal"></app-tarjeta-indicador>
-
-            <app-tarjeta-indicador
-                titulo="Abiertos"
-                [valor]="resumen().abiertos"
-                descripcion="Tickets que se encuentran abiertos"
-                apoyo="Estado: Abierto"
-                icono="folder_open"
-                variante="azul"></app-tarjeta-indicador>
-
-            <app-tarjeta-indicador
-                titulo="En proceso"
-                [valor]="resumen().enProceso"
-                descripcion="Tickets que se encuentran en proceso"
-                apoyo="Estado: En proceso"
-                icono="pending_actions"
-                variante="ambar"></app-tarjeta-indicador>
-
-            <app-tarjeta-indicador
-                titulo="Cerrados"
-                [valor]="resumen().cerrados"
-                descripcion="Tickets que se encuentran cerrados"
-                apoyo="Estado: cerrado"
-                icono="task_alt"
-                variante="verde"></app-tarjeta-indicador>
-        </section>
-
-        <div class="titulo-seccion">
-            <h2>Seguimiento operacional</h2>
-            <span>Indicadores del con junto seleccionado</span>
-        </div>
-
-        <section class="metricas metricas-seguimiento" aria-label="Indicadores de seguimiento">
-            <app-tarjeta-indicador
-                titulo="Pendientes de cierre"
-                [valor]="pendientes()"
-                descripcion="Tickets abiertos o en proceso"
-                [apoyo]="resumen().abiertos + ' abiertos + ' + resumen().enProceso + ' en proceso'"
-                icono="inventory_2"
-                variante="azul"></app-tarjeta-indicador>
-
-            <app-tarjeta-indicador
-                titulo="Alta prioridad"
-                [valor]="resumen().altaPendientes"
-                descripcion="prioridad alta sin cerrar"
-                [apoyo]="estadoPrioridadAlta()"
-                icono="priority_high"
-                variante="roja"></app-tarjeta-indicador>
-
-            <app-tarjeta-indicador
-                titulo="Porcentaje cerrado"
-                [valor]="(porcentajeCerrados() | number:'1.1-1') ?? '0.0'"
-                unidad="%"
-                descripcion="Porcentaje de tickets cerrados respecto al total"
-                [apoyo]="resumen().cerrados + ' cerrados de ' + resumen().total + ' tickets'"
-                icono="verified"
-                variante="verde"></app-tarjeta-indicador>
-        </section>
+      <p class="aviso" role="status">No hay tickets con la prioridad seleccionada.</p>
     }
+
+    <div class="titulo-seccion">
+      <h2>Estado General</h2>
+      <span>{{ alcance() }}</span>
+    </div>
+
+    <section class="metricas" aria-label="Indicadores por estado">
+      <app-tarjeta-indicador
+        titulo="Total de tickets"
+        [valor]="resumen().total"
+        descripcion="Tickets del conjunto seleccionado"
+        apoyo="Incluye todos los estados"
+        icono="confirmation_number"
+        variante="principal">
+      </app-tarjeta-indicador>
+
+      <app-tarjeta-indicador
+        titulo="Abiertos"
+        [valor]="resumen().abiertos"
+        descripcion="Tickets que se encuentran abiertos"
+        apoyo="Estado: Abierto"
+        icono="folder_open"
+        variante="azul">
+      </app-tarjeta-indicador>
+
+      <app-tarjeta-indicador
+        titulo="En proceso"
+        [valor]="resumen().enProceso"
+        descripcion="Tickets que se encuentran en proceso"
+        apoyo="Estado: En proceso"
+        icono="pending_actions"
+        variante="ambar">
+      </app-tarjeta-indicador>
+
+      <app-tarjeta-indicador
+        titulo="Cerrados"
+        [valor]="resumen().cerrados"
+        descripcion="Tickets que se encuentran cerrados"
+        apoyo="Estado: cerrado"
+        icono="task_alt"
+        variante="verde">
+      </app-tarjeta-indicador>
+    </section>
+
+    <div class="titulo-seccion">
+      <h2>Seguimiento operacional</h2>
+      <span>Indicadores del conjunto seleccionado</span>
+    </div>
+
+    <section class="metricas metricas-seguimiento" aria-label="Indicadores de seguimiento">
+      <app-tarjeta-indicador
+        titulo="Pendientes de cierre"
+        [valor]="pendientes()"
+        descripcion="Tickets abiertos o en proceso"
+        [apoyo]="resumen().abiertos + ' abiertos + ' + resumen().enProceso + ' en proceso'"
+        icono="inventory_2"
+        variante="azul">
+      </app-tarjeta-indicador>
+
+      <app-tarjeta-indicador
+        titulo="Alta prioridad"
+        [valor]="resumen().altaPendientes"
+        descripcion="prioridad alta sin cerrar"
+        [apoyo]="estadoPrioridadAlta()"
+        icono="priority_high"
+        variante="roja">
+      </app-tarjeta-indicador>
+
+      <app-tarjeta-indicador
+        titulo="Porcentaje cerrado"
+        [valor]="(porcentajeCerrados() | number:'1.1-1') ?? '0.0'"
+        unidad="%"
+        descripcion="Porcentaje de tickets cerrados respecto al total"
+        [apoyo]="resumen().cerrados + ' cerrados de ' + resumen().total + ' tickets'"
+        icono="verified"
+        variante="verde">
+      </app-tarjeta-indicador>
+    </section>
+
+    <div class="titulo-seccion">
+      <h2>Gráficos</h2>
+      <span>Distribución de tickets</span>
+    </div>
+
+    <section class="metricas metricas-graficos" aria-label="Gráficos de tickets">
+      <app-grafico-tickets
+        titulo="Tickets por Estado"
+        tipo="bar"
+        [series]="serieEstados()">
+      </app-grafico-tickets>
+
+      <app-grafico-tickets
+        titulo="Distribución por Prioridad"
+        tipo="doughnut"
+        [series]="serieCierre()">
+      </app-grafico-tickets>
+
+      <app-grafico-tickets
+        titulo="Tickets creados por día"
+        tipo="linea"
+        [series]="serieTicketsPorDia()">
+      </app-grafico-tickets>
+
+      <app-grafico-tickets
+        titulo="Tickets pendientes por prioridad"
+        tipo="bar"
+        [series]="seriePendientesPorPrioridad()">
+      </app-grafico-tickets>
+
+      @if (totalPendientes() > 0) {
+        <app-grafico-tickets
+          titulo="Composición del trabajo pendiente"
+          tipo="doughnut"
+          [series]="serieComposicionPendiente()">
+        </app-grafico-tickets>
+      } @else {
+        <p class="aviso" role="status">Sin tickets pendientes en la prioridad seleccionada.</p>
+      }
+    </section>
+
+    <footer class="nota">
+      Los indicadores consideran los tickets de la prioridad seleccionada,
+      sin filtro de período. Los datos se consultan al entrar a esta vista
+      o al pulsar “Actualizar datos”.
+    </footer>
+  }
 </section>

@@ -1,0 +1,221 @@
+:host {
+  display: block;
+}
+
+/* =========================================================
+   PANEL PRINCIPAL (estilo tarjeta del dashboard)
+   ========================================================= */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 320px;
+
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgb(15 23 42 / 0.08);
+  box-sizing: border-box;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+}
+
+.panel:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 8px 16px -4px rgb(15 23 42 / 0.12);
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
+
+.panel h3 {
+  margin: 0 0 12px;
+
+  font-size: 13px;
+  font-weight: 700;
+  color: #475569;
+
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* =========================================================
+   LIENZO SVG
+   ========================================================= */
+
+.lienzo {
+  width: 100%;
+  height: auto;
+  max-height: 190px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+/* =========================================================
+   BARRAS (tipo 'bar')
+   ========================================================= */
+
+.lienzo rect {
+  rx: 4;
+  transition:
+    fill 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.lienzo rect.atenueado {
+  opacity: 0.35;
+}
+
+/* =========================================================
+   LÍNEA (tipo 'linea')
+   ========================================================= */
+
+.lienzo path {
+  transition: stroke 0.2s ease;
+}
+
+.lienzo .punto {
+  transition:
+    fill 0.2s ease,
+    r 0.2s ease;
+}
+
+.lienzo .punto.atenueado {
+  opacity: 0.35;
+}
+
+/* Texto de cantidad sobre la barra */
+.lienzo rect + text {
+  font-size: 10px;
+  font-weight: 700;
+  fill: #0f172a;
+  pointer-events: none;
+}
+
+/* =========================================================
+   CÍRCULOS / DOUGHNUT (tipo 'doughnut')
+   ========================================================= */
+
+.lienzo circle {
+  transition: stroke 0.2s ease;
+}
+
+.lienzo circle.atenuado {
+  opacity: 0.35;
+}
+
+/* Total en el centro del doughnut */
+.lienzo text.total {
+  font-size: 20px;
+  font-weight: 700;
+  fill: #0f172a;
+  pointer-events: none;
+}
+
+/* =========================================================
+   DETALLE
+   ========================================================= */
+
+.detalle-contenedor {
+  padding: 0 8px 8px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.detalle {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 400;
+  color: #475569;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   LEYENDA (lista de botones)
+   ========================================================= */
+
+.panel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.panel ul li {
+  margin: 0;
+}
+
+.panel ul li button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 6px 10px;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+
+  background: #f8fafc;
+  color: #475569;
+
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.panel ul li button:hover {
+  background: #fef3c7;
+  border-color: #d97706;
+  color: #92400e;
+}
+
+.muestra {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.panel ul li button strong {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 640px) {
+  .panel {
+    max-width: 100%;
+  }
+
+  .lienzo {
+    max-height: 160px;
+  }
+
+  .panel ul {
+    gap: 8px;
+  }
+
+  .panel ul li button {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+}
