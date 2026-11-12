@@ -34,7 +34,7 @@
                         {{ ticketActual.asunto }}
                     </h1>
                 </div>
-                @if (ticketActual.estado !== 'Cerrado')
+                @if (puedeEditar() && ticketActual.estado !== 'Cerrado')
                 {
                   <a mat-flat-button [routerLink]="['/tickets/editar', ticketActual.id]">
                       <mat-icon>edit</mat-icon>

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import {DatePipe} from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,6 +7,7 @@ import { TicketService } from '../../services/ticket';
 import { Ticket } from '../../models/ticket';
 import { EstadoTicket } from '../../shared/estado-ticket/estado-ticket';
 import { PrioridadTicket } from '../../shared/prioridad-ticket/prioridad-ticket';
+import { Sesion } from '../../services/sesion';
 
 @Component({
   selector: 'app-ticket-detalle',
@@ -25,10 +26,13 @@ export class TicketDetalle implements OnInit {
 
   private route = inject(ActivatedRoute);
   private ticketService = inject(TicketService);
+  private readonly sesion = inject(Sesion);
 
   ticket = signal<Ticket | null>(null);
   cargando = signal<boolean>(true);
   error = signal<boolean>(false);
+
+  readonly puedeEditar = computed(() => this.sesion.tieneAlgunRol(['Soporte', 'Administrador']));
 
   ngOnInit(): void {
 

@@ -10,6 +10,10 @@ import { Usuarios } from './pages/usuarios/usuarios';
 import { UsuarioForm } from './pages/usuario-form/usuario-form';
 import { UsuarioDetalle } from './pages/usuario-detalle/usuario-detalle';
 
+import { requiereRoles, sesionGuard } from './guards/acceso-guard';
+import { Login } from './pages/login/login';
+import { SinAcceso } from './pages/sin-acceso/sin-acceso';
+
 export const routes: Routes = [
   {
     path: '',
@@ -17,51 +21,71 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'login',
+    component: Login
+  },
+  {
+    path: 'sin-acceso',
+    canActivate: [sesionGuard],
+    component: SinAcceso
+  },
+  {
     path: 'dashboard',
-    component: Dashboard
+    component: Dashboard,
+    canActivate: [sesionGuard]
   },
   {
     path: 'tickets',
-    component: Tickets
+    component: Tickets,
+    canActivate: [sesionGuard]
   },
   {
     path: 'tickets/nuevo',
-    component: TicketForm
+    component: TicketForm,
+    canActivate: [requiereRoles('Administrador', 'Soporte')]
   },
   {
     path: 'tickets/editar/:id',
-    component: TicketForm
+    component: TicketForm,
+    canActivate: [requiereRoles('Administrador', 'Soporte')]
   },
   {
     path: 'tickets/:id',
-    component: TicketDetalle
+    component: TicketDetalle,
+    canActivate: [sesionGuard]
   },
   {
     path: 'usuarios',
-    component: Usuarios
+    component: Usuarios,
+    canActivate: [sesionGuard]
   },
   {
     path: 'usuarios/nuevo',
-    component: UsuarioForm
+    component: UsuarioForm,
+    canActivate: [sesionGuard]
   },
   {
     path: 'usuarios/editar/:id',
-    component: UsuarioForm
+    component: UsuarioForm,
+    canActivate: [sesionGuard]
   },
   {
     path: 'usuarios/:id',
-    component: UsuarioDetalle
+    component: UsuarioDetalle,
+    canActivate: [sesionGuard]
   },
   {
     path: 'kanban',
-    component: Kanban
+    component: Kanban,
+    canActivate: [requiereRoles('Administrador', 'Soporte')]
   },
   {
     path: 'reportes',
-    component: Reportes
+    component: Reportes,
+    canActivate: [requiereRoles('Administrador')]
   },
   {
     path: '**',
-    component: Error404
+    redirectTo: 'error404'
   }
 ];

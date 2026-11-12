@@ -79,6 +79,22 @@
       "prioridad": "Media",
       "fechaCreacion": "2026-10-01",
       "id": "10"
+    },
+    {
+      "asunto": "prueba network",
+      "descripcion": "probando ticket como soporte",
+      "estado": "Abierto",
+      "prioridad": "Alta",
+      "fechaCreacion": "2026-11-12",
+      "id": "D5areVDoCRY"
+    },
+    {
+      "asunto": "prueba de red",
+      "descripcion": "tst de red",
+      "estado": "Abierto",
+      "prioridad": "Media",
+      "fechaCreacion": "2026-11-12",
+      "id": "Db0qSQ8Fapw"
     }
   ],
   "usuarios": [

@@ -8,11 +8,18 @@
     Sistema Help Desk
   </span>
 
+  @if (sesion.actual(); as perfil) {
+    <button mat-button type="button" style="margin-left: auto;" (click)="cerrarSesion()">
+      Cerrar Sesion - {{ perfil.rol }}
+    </button>
+  }
+
+
 </mat-toolbar>
 
 <mat-sidenav-container class="layout">
 
-  <mat-sidenav mode="side" opened class="sidebar">
+  <mat-sidenav mode="side" opened="sesion.actual() !== null" class="sidebar">
 
     <div class="sidebar-header">
 
@@ -93,6 +100,7 @@
             </span>
           </a>
 
+          @if (sesion.tieneAlgunRol(['Soporte', 'Administrador'])) {
           <a
             mat-list-item
             class="submenu-item"
@@ -103,6 +111,7 @@
               Nuevo Ticket
             </span>
           </a>
+          }
 
         }
 
@@ -162,34 +171,21 @@
 
       </div>
 
-      <a
-        mat-list-item
-        routerLink="/kanban"
-        routerLinkActive="activo"
-      >
-        <mat-icon matListItemIcon>
-          view_kanban
-        </mat-icon>
+      @if (sesion.tieneAlgunRol(['Soporte', 'Administrador'])) {
+        <a
+          mat-list-item
+          routerLink="/kanban"
+          routerLinkActive="activo"
+        >
+          <mat-icon matListItemIcon>
+            view_kanban
+          </mat-icon>
 
-        <span matListItemTitle>
-          Kanban
-        </span>
-      </a>
-
-      <a
-        mat-list-item
-        routerLink="/reportes"
-        routerLinkActive="activo"
-      >
-        <mat-icon matListItemIcon>
-          bar_chart
-        </mat-icon>
-
-        <span matListItemTitle>
-          Reportes
-        </span>
-      </a>
-
+          <span matListItemTitle>
+            Kanban
+          </span>
+        </a>
+      }
       <a
         mat-list-item
         routerLink="/acerca"
