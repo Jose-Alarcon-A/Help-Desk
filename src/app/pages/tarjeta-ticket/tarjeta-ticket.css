@@ -4,10 +4,10 @@
 
 .ticket-card {
     padding: 14px;
-    border-radius: 12px;
-    border-left: 4px solid #94a3b8;
-    background-color: #fff;
-    box-shadow: 0 4px 6px -1px rgb(15 23 42 / 0.1);
+    border-radius: var(--sys-radius);
+    border-left: 4px solid var(--sys-border);
+    background-color: var(--sys-surface);
+    box-shadow: var(--sys-shadow);
 }
 
 .ticket-card.pri-alta {
@@ -31,7 +31,7 @@
 }
 
 .ticket-id {
-    color: #64748b;
+    color: var(--sys-text-light);
     font-size: 12px;
     font-weight: 600;
 }
@@ -79,15 +79,15 @@
 
 .ticket-fecha {
     padding-top: 10px;
-    border-top: 1px solid #e2e8f0;
-    color: #67748b;
+    border-top: 1px solid var(--sys-border);
+    color: var(--sys-text-light);
     font-size: 12px;
 }
 
 .estado-label {
     display: block;
     margin: 14px 0 6px;
-    color: #475559;
+    color: var(--sys-text-muted);
     font-size: 12px;
     font-weight: 600;
 }
@@ -96,9 +96,9 @@
     width: 100%;
     min-height: 38px;
     padding: 6px 10px;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    background-color: #ffffff;
-    color: #0f172a;
+    border: 1px solid var(--sys-border);
+    border-radius: var(--sys-radius-sm);
+    background-color: var(--sys-surface);
+    color: var(--sys-text);
     font: inherit;
 }

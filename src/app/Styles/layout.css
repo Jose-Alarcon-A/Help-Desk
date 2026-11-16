@@ -26,6 +26,20 @@
   --est-cerrado-bg: #dcfce7;
   --est-cerrado-borde: #16a34a;
   --est-cerrado-texto: #15803d;
+
+  /* Tokens globales de superficie y componentes */
+  --sys-surface: #ffffff;
+  --sys-surface-alt: #f8fafc;
+  --sys-border: #e2e8f0;
+  --sys-border-focus: #2563eb;
+  --sys-text: #0f172a;
+  --sys-text-muted: #475569;
+  --sys-text-light: #64748b;
+  --sys-shadow: 0 4px 6px -1px rgb(15 23 42 / 0.08);
+  --sys-shadow-hover: 0 8px 16px -4px rgb(15 23 42 / 0.12);
+  --sys-radius: 12px;
+  --sys-radius-sm: 8px;
+  --sys-transition: 0.2s ease;
 }
 
 /* =========================================================

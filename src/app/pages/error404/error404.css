@@ -71,7 +71,7 @@
 .error-message p {
   margin: 0;
 
-  color: #64748b;
+  color: var(--sys-text-light);
 }
 
 

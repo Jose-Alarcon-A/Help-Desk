@@ -76,18 +76,18 @@ td.mat-column-asunto {
   gap: 6px;
   min-width: 140px;
   padding: 10px 14px;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  background: #ffffff;
-  box-shadow: 0 1px 3px -1px rgb(15 23 42 / 6%);
+  border: 1px solid var(--sys-border);
+  border-radius: var(--sys-radius);
+  background: var(--sys-surface);
+  box-shadow: var(--sys-shadow);
   box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 }
 
 .filtro-item:focus-within,
 .filtro-item:hover {
-  border-color: #2563eb;
-  box-shadow: 0 4px 12px -2px rgb(37 99 235 / 0.12);
+  border-color: var(--sys-border-focus);
+  box-shadow: var(--sys-shadow-hover);
   transform: translateY(-1px);
 }
 
@@ -115,7 +115,7 @@ td.mat-column-asunto {
   font: inherit;
   font-size: 13px;
   font-weight: 500;
-  color: #0f172a;
+  color: var(--sys-text);
 }
 
 .filtro-item .mat-mdc-form-field-outline {
@@ -136,10 +136,10 @@ td.mat-column-asunto {
   gap: 7px;
   height: 36px;
   padding: 0 16px;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  background-color: #f8fafc;
-  color: #475569;
+  border: 1px solid var(--sys-border);
+  border-radius: var(--sys-radius-sm);
+  background-color: var(--sys-surface-alt);
+  color: var(--sys-text-light);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -147,9 +147,9 @@ td.mat-column-asunto {
 }
 
 .btn-limpiar-filtros:hover {
-  background-color: #fef3c7;
-  border-color: #d97706;
-  color: #92400e;
+  background-color: var(--pri-media-bg);
+  border-color: var(--pri-media-borde);
+  color: var(--pri-media-texto);
 }
 
 @media (max-width: 600px) {

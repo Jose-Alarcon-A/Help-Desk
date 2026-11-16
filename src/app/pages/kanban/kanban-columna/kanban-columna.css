@@ -1,14 +1,17 @@
 :host {
     display: block;
-    min-width: 250px;
+    min-width: 300px;
 }
 
 .columna {
     min-height: 380px;
     padding: 14px;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    background-color: #f8fafc;
+    border: 1px solid var(--sys-border);
+    border-radius: var(--sys-radius);
+    background-color: var(--sys-surface);
+    box-shadow: var(--sys-shadow);
+    display: flex;
+    flex-direction: column;
 }
 
 .columna-encabezado {
