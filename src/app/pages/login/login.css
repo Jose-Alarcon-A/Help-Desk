@@ -1,29 +1,118 @@
+/* =========================================================
+   PÁGINA DE ACCESO (LOGIN)
+   ========================================================= */
+
 .acceso {
-    max-width: 32rem;
-    margin: 2rem auto;
-    padding: 1.5rem;
-    border: 1px solid #dbe3ee;
-    border-radius: 1rem;
-    background: #ffffff;
+  max-width: 400px;
+  margin: 48px auto;
+  padding: 24px;
+
+  border: 1px solid var(--sys-border);
+  border-radius: var(--sys-radius);
+  background: var(--sys-surface);
+  box-shadow: var(--sys-shadow);
+
+  box-sizing: border-box;
 }
 
-.perfiles {
-    display: grid;
-    gap: 0.75rem;
-    margin-top: 1.25rem;
+.acceso h1#titulo-acceso {
+  margin: 0 0 20px;
+
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--sys-text);
+  letter-spacing: -0.4px;
 }
 
-button {
-    padding: 0.75rem 1rem;
-    border: 1px solid #1d4ed8;
-    border-radius: 0.5rem;
-    background: #1d4ed8;
-    color: #ffffff;
-    font: inherit;
-    cursor: pointer;
+.acceso form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-button:focus-visible {
-    outline: 2px solid #1d4ed8;
-    outline-offset: 3px;
+.acceso label {
+  display: block;
+  margin-bottom: 6px;
+
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sys-text-light);
+
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.acceso input[type="text"],
+.acceso input[type="password"] {
+  width: 100%;
+  padding: 10px 14px;
+
+  border: 1px solid var(--sys-border);
+  border-radius: var(--sys-radius-sm);
+  background: var(--sys-surface);
+  color: var(--sys-text);
+
+  font: inherit;
+  font-size: 14px;
+
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.acceso input[type="text"]:focus,
+.acceso input[type="password"]:focus {
+  outline: none;
+  border-color: var(--sys-border-focus);
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 0.12);
+}
+
+.acceso .error {
+  margin: 0 0 16px;
+  padding: 10px 14px;
+
+  border: 1px solid var(--pri-alta-borde);
+  border-radius: var(--sys-radius-sm);
+  background: var(--pri-alta-bg);
+  color: var(--pri-alta-texto);
+
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.acceso button[type="submit"] {
+  width: 100%;
+  padding: 10px 20px;
+
+  border: none;
+  border-radius: var(--sys-radius-sm);
+  background: var(--sys-border-focus);
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.acceso button[type="submit"]:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.acceso button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 480px) {
+  .acceso {
+    margin: 24px 16px;
+    padding: 16px;
+  }
 }

@@ -1,48 +1,48 @@
-import { Component, OnInit, ViewChild, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subject, catchError, of, switchMap, timer } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import { Ticket } from '../../models/ticket';
 import { TicketService } from '../../services/ticket';
-import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 import { EstadoTicket } from '../../shared/estado-ticket/estado-ticket';
 import { PrioridadTicket } from '../../shared/prioridad-ticket/prioridad-ticket';
 import { AccionesTicket } from '../../shared/acciones-ticket/acciones-ticket';
-import { IdTicket } from '../../shared/id-ticket/id-ticket';
-import { DialogoService } from '../../shared/dialogo/dialogo.service';
+import { ConfirmDialog } from '../../shared/confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-tickets',
   imports: [
+    FormsModule,
     MatTableModule,
     MatPaginatorModule,
-    DatePipe,
-    MatIconModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
+    DatePipe,
+    RouterLink,
+    MatIconModule,
     EstadoTicket,
     PrioridadTicket,
-    AccionesTicket,
-    IdTicket
-],
+    AccionesTicket
+  ],
   templateUrl: './tickets.html',
   styleUrl: './tickets.css'
 })
 export class Tickets implements OnInit {
 
   private ticketService = inject(TicketService);
-  private dialogo = inject(DialogoService);
+  private dialog = inject(MatDialog);
 
   columnas: string[] = [
     'id',
@@ -53,147 +53,173 @@ export class Tickets implements OnInit {
     'acciones'
   ];
 
-  dataSource = new MatTableDataSource<Ticket>();
+  // MODIFICADO: conserva la última página confirmada.
+  readonly filas = signal<Ticket[]>([]);
+  readonly total = signal(0);
+  readonly paginaVisible = signal(0);
+  readonly tamanoVisible = signal(20);
+  readonly paginaCargada = signal(false);
+  readonly esVistaCritica = signal(false);
+
+  indiceSolicitado = 0;
+  tamanoSolicitado = 20;
+  private readonly recargas = new Subject<number>();
 
   cargando = signal(true);
   error = signal(false);
   eliminandoId = signal<string | null>(null);
 
   filtros = {
-    texto:'',
-    estado:'',
-    prioridad:'',
-    fechaDesde:'',
-    fechaHasta:''
+    texto: '',
+    estado: '',
+    prioridad: '',
+    fechaDesde: '',
+    fechaHasta: ''
   };
 
-  constructor(){
-    this.dataSource.filterPredicate = (
-      ticket: Ticket,
-      filtroJson : string
-    ): boolean => {
-      const criterios = JSON.parse(filtroJson) as typeof this.filtros;
-      const texto = criterios.texto.trim().toLocaleLowerCase();
-      const coincideTexto = texto === '' || [
-        ticket.id,
-        ticket.asunto,
-        ticket.descripcion,
-        ticket.estado,
-        ticket.prioridad,
-      ].some(valor => String(valor).toLocaleLowerCase().includes(texto));
-      const coincideEstado = criterios.estado === '' || ticket.estado === criterios.estado;
-      const coincidePrioridad = criterios.prioridad === '' || ticket.prioridad === criterios.prioridad;
-      const fechaTicket = ticket.fechaCreacion.slice(0, 10);
-      const coincideFechaDesde = criterios.fechaDesde === '' || fechaTicket >= criterios.fechaDesde;
-      const coincideFechaHasta = criterios.fechaHasta === '' || fechaTicket <= criterios.fechaHasta;
+  constructor() {
+    this.recargas.pipe(
+      switchMap(demora =>
+        (demora > 0 ? timer(demora) : of(0)).pipe(
+          switchMap(() => this.ticketService.obtenerTicketsPaginados(
+            this.indiceSolicitado + 1,
+            this.tamanoSolicitado,
+            this.filtros
+          )),
+          catchError(error => {
+            console.error('Error al cargar tickets:', error);
+            return of(null);
+          })
+        )
+      ),
+      takeUntilDestroyed()
+    ).subscribe(pagina => {
+      if (pagina) {
+        this.filas.set(pagina.results);
+        this.total.set(pagina.count);
+        this.paginaVisible.set(this.indiceSolicitado);
+        this.tamanoVisible.set(this.tamanoSolicitado);
+        this.paginaCargada.set(true);
+      } else {
+        this.error.set(true);
+      }
 
-      return coincideTexto && coincideEstado && coincidePrioridad && coincideFechaDesde && coincideFechaHasta;
-    };
-  }
-
-  @ViewChild(MatPaginator)
-  set paginator(paginator: MatPaginator) {
-    if (paginator) {
-      this.dataSource.paginator = paginator;
-    }
+      this.cargando.set(false);
+    });
   }
 
   ngOnInit(): void {
-    this.dataSource.filter = JSON.stringify(this.filtros);
     this.cargarTickets();
   }
 
-  cargarTickets(): void {
+  cargarTickets(demora = 0): void {
     this.cargando.set(true);
     this.error.set(false);
+    this.recargas.next(demora);
+  }
 
-    this.ticketService.obtenerTickets().subscribe({
-      next: (tickets) => {
-        this.dataSource.data = tickets;
-        this.cargando.set(false);
-      },
-
-      error: (error) => {
-        console.error('Error al cargar tickets:', error);
-        this.error.set(true);
-        this.cargando.set(false);
-      }
-    });
+  cambiarPagina(evento: PageEvent): void {
+    this.indiceSolicitado = evento.pageIndex;
+    this.tamanoSolicitado = evento.pageSize;
+    this.cargarTickets();
   }
 
   aplicarBusqueda(valor: string): void {
     this.filtros.texto = valor;
-    this.aplicarFiltros();
+    this.aplicarFiltros(300);
   }
 
   aplicarFiltroEstado(valor: string): void {
     this.filtros.estado = valor;
+    this.actualizarVistaCritica();
     this.aplicarFiltros();
   }
 
   aplicarFiltroPrioridad(valor: string): void {
     this.filtros.prioridad = valor;
+    this.actualizarVistaCritica();
     this.aplicarFiltros();
   }
 
-  aplicarFechaDesde(valor: Date | null): void {
-    const fecha = valor ? valor.toISOString().slice(0, 10) : '';
-    this.filtros.fechaDesde = fecha;
+  private actualizarVistaCritica(): void {
+    this.esVistaCritica.set(
+      this.filtros.estado === 'Abierto' && this.filtros.prioridad === 'Alta'
+    );
+  }
 
-    if(this.filtros.fechaDesde !== '' && this.filtros.fechaDesde > this.filtros.fechaHasta) {
+  alternarVistaCritica(): void {
+    if (this.esVistaCritica()) {
+      this.filtros.estado = '';
+      this.filtros.prioridad = '';
+      this.esVistaCritica.set(false);
+    } else {
+      this.filtros.estado = 'Abierto';
+      this.filtros.prioridad = 'Alta';
+      this.esVistaCritica.set(true);
+    }
+
+    this.aplicarFiltros();
+  }
+
+  aplicarFechaDesde(valor: string): void {
+    this.filtros.fechaDesde = valor;
+
+    if (valor && this.filtros.fechaHasta && valor > this.filtros.fechaHasta) {
       this.filtros.fechaHasta = this.filtros.fechaDesde;
     }
 
     this.aplicarFiltros();
   }
 
-  aplicarFechaHasta(valor: Date | null): void {
-    const fecha = valor ? valor.toISOString().slice(0, 10) : '';
-    this.filtros.fechaHasta = fecha;
+  aplicarFechaHasta(valor: string): void {
+    this.filtros.fechaHasta = valor;
 
-    if(this.filtros.fechaHasta !== '' && this.filtros.fechaHasta < this.filtros.fechaDesde) {
+    if (valor && this.filtros.fechaDesde && valor < this.filtros.fechaDesde) {
       this.filtros.fechaDesde = this.filtros.fechaHasta;
     }
 
     this.aplicarFiltros();
   }
 
-  aplicarFiltros(): void {
-    this.dataSource.filter = JSON.stringify(this.filtros);
-    this.dataSource.paginator?.firstPage();
-  }
-
-  parseFecha(fechaStr: string): Date | null {
-    if (!fechaStr) return null;
-    const partes = fechaStr.split('-');
-    return new Date(Number(partes[0]), Number(partes[1]) - 1, Number(partes[2]));
-  }
-
-  eliminar(ticket: Ticket): void {
-    this.dialogo.confirm(
-      'Eliminar ticket',
-      '¿Está seguro que desea eliminar el ticket?',
-      {
-        textoConfirmar: 'Eliminar',
-        variante: 'warn',
-        aceptar: () => this.eliminarTicket(ticket)
-      }
-    );
+  private aplicarFiltros(demora = 0): void {
+    this.indiceSolicitado = 0;
+    this.cargarTickets(demora);
   }
 
   limpiarFiltros(): void {
     this.filtros = {
-      texto:'',
-      estado:'',
-      prioridad:'',
-      fechaDesde:'',
-      fechaHasta:''
-    }
+      texto: '',
+      estado: '',
+      prioridad: '',
+      fechaDesde: '',
+      fechaHasta: ''
+    };
+
+    this.esVistaCritica.set(false);
     this.aplicarFiltros();
   }
 
-  get sinResultado(): boolean {
-    return this.dataSource.filteredData.length === 0;
+  eliminar(ticket: Ticket): void {
+    const dialogRef = this.dialog.open(ConfirmDialog, {
+      width: '430px',
+      maxWidth: '95vw',
+      disableClose: true,
+      data: {
+        titulo: 'Eliminar ticket',
+        mensaje: '¿Está seguro que desea eliminar el ticket?',
+        textoConfirmar: 'Eliminar',
+        textoCancelar: 'Cancelar'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(
+      resultado => {
+        if (resultado !== true) {
+          return;
+        }
+
+        this.eliminarTicket(ticket);
+    });
   }
 
   private eliminarTicket(ticket: Ticket): void {
@@ -202,14 +228,13 @@ export class Tickets implements OnInit {
     this.ticketService.eliminarTicket(ticket.id).subscribe({
       next: () => {
         this.eliminandoId.set(null);
-        this.cargarTickets();
-        this.dialogo.info('Eliminado', 'El ticket fue eliminado correctamente.');
+        this.aplicarFiltros();
       },
       error: (error) => {
         console.error('Error al intentar eliminar el ticket:', error);
         this.eliminandoId.set(null);
-        this.dialogo.error('Error', 'No fue posible eliminar el ticket. Intente nuevamente.');
       }
     });
   }
 }
+

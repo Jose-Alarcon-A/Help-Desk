@@ -4,7 +4,6 @@ import { Tickets } from './pages/tickets/tickets';
 import { TicketForm } from './pages/ticket-form/ticket-form';
 import { TicketDetalle } from './pages/ticket-detalle/ticket-detalle';
 import { Kanban } from './pages/kanban/kanban';
-import { Reportes } from './pages/reportes/reportes';
 import { Error404 } from './pages/error404/error404';
 import { Usuarios } from './pages/usuarios/usuarios';
 import { UsuarioForm } from './pages/usuario-form/usuario-form';
@@ -80,12 +79,7 @@ export const routes: Routes = [
     canActivate: [requiereRoles('Administrador', 'Soporte')]
   },
   {
-    path: 'reportes',
-    component: Reportes,
-    canActivate: [requiereRoles('Administrador')]
-  },
-  {
     path: '**',
-    redirectTo: 'error404'
+    redirectTo: 'Error404'
   }
 ];

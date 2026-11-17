@@ -1,17 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ConfirmDialog } from './confirm-dialog';
 
-import { Reportes } from './reportes';
-
-describe('Reportes', () => {
-  let component: Reportes;
-  let fixture: ComponentFixture<Reportes>;
+describe('ConfirmDialog', () => {
+  let component: ConfirmDialog;
+  let fixture: ComponentFixture<ConfirmDialog>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Reportes],
+      imports: [ConfirmDialog],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Reportes);
+    fixture = TestBed.createComponent(ConfirmDialog);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
@@ -20,3 +19,4 @@ describe('Reportes', () => {
     expect(component).toBeTruthy();
   });
 });
+
