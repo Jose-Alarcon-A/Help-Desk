@@ -5,11 +5,6 @@
     <p>Listado de solicitudes registradas en el Sistema Help Desk.</p>
   </div>
 
-  <a mat-flat-button routerLink="/tickets/nuevo">
-    <mat-icon>add</mat-icon>
-    Nuevo Ticket
-  </a>
-
   <section class="panel-filtros" aria-label="Panel de filtros">
     <mat-form-field appearance="outline" class="filtro-busqueda">
       <mat-label>Buscar tickets</mat-label>
@@ -46,12 +41,26 @@
       <mat-label>Hasta</mat-label>
       <input matInput type="date" [ngModel]="filtros.fechaHasta" (ngModelChange)="aplicarFechaHasta($event)">
     </mat-form-field>
+  </section>
 
+  <div class="acciones-filtros">
+    <a mat-flat-button routerLink="/tickets/nuevo">
+      <mat-icon>add</mat-icon>
+      Nuevo Ticket
+    </a>
     <button mat-stroked-button type="button" (click)="alternarVistaCritica()">
       {{ esVistaCritica() ? 'Quitar filtros críticos' : 'Ver tickets críticos' }}
     </button>
     <button mat-stroked-button type="button" (click)="limpiarFiltros()">Limpiar filtros</button>
-  </section>
+  </div>
+
+  <div class="resumen-pagina" aria-label="Resumen de tickets visibles en esta página">
+    <strong>En esta página</strong>
+    <span>Tickets: </span>
+    <span class="pill-estado abierto">Abierto: {{ contadoresEstado().Abierto }}</span>
+    <span class="pill-estado proceso">En proceso: {{ contadoresEstado()['En proceso'] }}</span>
+    <span class="pill-estado cerrado">Cerrado: {{ contadoresEstado().Cerrado }}</span>
+  </div>
 
   <!-- MODIFICADO: el estado se actualiza sin retirar la tabla. -->
   <p class="contador-resultados" role="status">

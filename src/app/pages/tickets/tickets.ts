@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subject, catchError, of, switchMap, timer } from 'rxjs';
 import { DatePipe } from '@angular/common';
@@ -60,6 +60,15 @@ export class Tickets implements OnInit {
   readonly tamanoVisible = signal(20);
   readonly paginaCargada = signal(false);
   readonly esVistaCritica = signal(false);
+
+  readonly contadoresEstado = computed(() => {
+    const rows = this.filas();
+    return {
+      Abierto: rows.filter((t) => t.estado === 'Abierto').length,
+      'En proceso': rows.filter((t) => t.estado === 'En proceso').length,
+      Cerrado: rows.filter((t) => t.estado === 'Cerrado').length
+    };
+  });
 
   indiceSolicitado = 0;
   tamanoSolicitado = 20;
