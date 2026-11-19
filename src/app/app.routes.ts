@@ -1,17 +1,5 @@
 import { Routes } from '@angular/router';
-import { Dashboard } from './pages/dashboard/dashboard';
-import { Tickets } from './pages/tickets/tickets';
-import { TicketForm } from './pages/ticket-form/ticket-form';
-import { TicketDetalle } from './pages/ticket-detalle/ticket-detalle';
-import { Kanban } from './pages/kanban/kanban';
-import { Error404 } from './pages/error404/error404';
-import { Usuarios } from './pages/usuarios/usuarios';
-import { UsuarioForm } from './pages/usuario-form/usuario-form';
-import { UsuarioDetalle } from './pages/usuario-detalle/usuario-detalle';
-
 import { requiereRoles, sesionGuard } from './guards/acceso-guard';
-import { Login } from './pages/login/login';
-import { SinAcceso } from './pages/sin-acceso/sin-acceso';
 
 export const routes: Routes = [
   {
@@ -21,65 +9,45 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    component: Login
+    loadComponent: () => import('./pages/login/login').then(m => m.Login)
   },
   {
     path: 'sin-acceso',
     canActivate: [sesionGuard],
-    component: SinAcceso
+    loadComponent: () => import('./pages/sin-acceso/sin-acceso').then(m => m.SinAcceso)
   },
   {
     path: 'dashboard',
-    component: Dashboard,
-    canActivate: [sesionGuard]
+    canActivate: [sesionGuard],
+    loadComponent: () => import('./pages/dashboard/dashboard').then(m => m.Dashboard)
   },
   {
     path: 'tickets',
-    component: Tickets,
-    canActivate: [sesionGuard]
+    canActivate: [sesionGuard],
+    loadComponent: () => import('./pages/tickets/tickets').then(m => m.Tickets)
   },
   {
     path: 'tickets/nuevo',
-    component: TicketForm,
-    canActivate: [requiereRoles('Administrador', 'Soporte')]
+    canActivate: [sesionGuard],
+    loadComponent: () => import('./pages/ticket-form/ticket-form').then(m => m.TicketForm)
   },
   {
     path: 'tickets/editar/:id',
-    component: TicketForm,
-    canActivate: [requiereRoles('Administrador', 'Soporte')]
+    canActivate: [sesionGuard],
+    loadComponent: () => import('./pages/ticket-form/ticket-form').then(m => m.TicketForm)
   },
   {
     path: 'tickets/:id',
-    component: TicketDetalle,
-    canActivate: [sesionGuard]
-  },
-  {
-    path: 'usuarios',
-    component: Usuarios,
-    canActivate: [sesionGuard]
-  },
-  {
-    path: 'usuarios/nuevo',
-    component: UsuarioForm,
-    canActivate: [sesionGuard]
-  },
-  {
-    path: 'usuarios/editar/:id',
-    component: UsuarioForm,
-    canActivate: [sesionGuard]
-  },
-  {
-    path: 'usuarios/:id',
-    component: UsuarioDetalle,
-    canActivate: [sesionGuard]
+    canActivate: [sesionGuard],
+    loadComponent: () => import('./pages/ticket-detalle/ticket-detalle').then(m => m.TicketDetalle)
   },
   {
     path: 'kanban',
-    component: Kanban,
-    canActivate: [requiereRoles('Administrador', 'Soporte')]
+    canActivate: [requiereRoles('Soporte', 'Administrador')],
+    loadComponent: () => import('./pages/kanban/kanban').then(m => m.Kanban)
   },
   {
     path: '**',
-    redirectTo: 'Error404'
+    redirectTo: 'error404'
   }
 ];

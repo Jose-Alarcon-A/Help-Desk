@@ -1,33 +1,38 @@
 <section class="ticket-form-page">
 
   <div class="encabezado">
+
     <h1>
       @if (modoEdicion()) {
-        Editar Ticket #{{ ticketId }}
+        Editar ticket #{{ ticketId }}
       } @else {
-        Nuevo Ticket
+        Nuevo ticket
       }
     </h1>
+
     <p>
       @if (modoEdicion()) {
-        Modificación de datos de la solicitud de soporte.
+        Modifica los datos de la solicitud de soporte.
       } @else {
         Registra una nueva solicitud de soporte.
       }
-      </p>
+    </p>
+
   </div>
 
   @if (cargando()) {
-    <div class="mensaje-cargando">
-      Cargando Ticket...
+
+    <div class="mensaje">
+      Cargando ticket...
     </div>
-  }
-  @else if (errorCargado()) {
-    <div class="error-cargado">
+
+  } @else if (errorCarga()) {
+
+    <div class="mensaje error">
       No fue posible cargar el ticket.
     </div>
-  }
-  @else {
+
+  } @else {
 
     <form
       class="formulario"
@@ -122,13 +127,21 @@
       </div>
 
       @if (errorGuardado()) {
-        <div class="error-guardado">
-          @if(modoEdicion()) {
-            No fue posible actualizar el ticket.
-          } @else {
-            No fue posible crear el ticket.
-          }
+
+        <div class="error-guardado" role="alert">
+
+          <mat-icon>error_outline</mat-icon>
+
+          <span>
+            @if (modoEdicion()) {
+              No fue posible actualizar el ticket.
+            } @else {
+              No fue posible crear el ticket.
+            }
+          </span>
+
         </div>
+
       }
 
       <div class="acciones">
@@ -136,8 +149,11 @@
         <button
           mat-stroked-button
           type="button"
+          [disabled]="guardando()"
           (click)="cancelar()">
+
           Cancelar
+
         </button>
 
         <button
@@ -145,14 +161,20 @@
           type="submit"
           [disabled]="guardando()">
 
-          <mat-icon>save</mat-icon>
+          <mat-icon>
+            @if (modoEdicion()) {
+              edit
+            } @else {
+              save
+            }
+          </mat-icon>
 
           @if (guardando()) {
             Guardando...
           } @else if (modoEdicion()) {
-            Guardar Cambios
+            Guardar cambios
           } @else {
-            Crear Ticket
+            Crear ticket
           }
 
         </button>
@@ -160,5 +182,7 @@
       </div>
 
     </form>
+
   }
+
 </section>
