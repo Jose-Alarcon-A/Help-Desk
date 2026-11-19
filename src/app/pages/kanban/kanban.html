@@ -89,23 +89,6 @@
 
     </div>
 
-    <div class="tablero" cdkDropListGroup>
-      @for (columna of estados; track columna.nombre) {
-        <app-kanban-columna
-          [titulo]="columna.titulo"
-          [estado]="columna.nombre"
-          [tickets]="ticketsPorEstado(columna.nombre)"
-
-          (cambiarEstado)="actualizarEstado(
-            $event.ticket,
-            $event.nuevoEstado
-          )"
-
-          (moverTicket)="actualizarEstado($event.ticket, $event.estadoDestino)"
-        />
-      }
-    </div>
-
     <div class="paginacion">
       <span class="pagina-info">
         Página {{ paginaActual() + 1 }} de {{ totalPaginas() }}
@@ -131,6 +114,23 @@
         (click)="cambiarPagina(paginaActual() + 1)">
         Siguiente
       </button>
+    </div>
+
+    <div class="tablero" cdkDropListGroup>
+      @for (columna of estados; track columna.nombre) {
+        <app-kanban-columna
+          [titulo]="columna.titulo"
+          [estado]="columna.nombre"
+          [tickets]="ticketsPorEstado(columna.nombre)"
+
+          (cambiarEstado)="actualizarEstado(
+            $event.ticket,
+            $event.nuevoEstado
+          )"
+
+          (moverTicket)="actualizarEstado($event.ticket, $event.estadoDestino)"
+        />
+      }
     </div>
   }
 

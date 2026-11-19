@@ -8,9 +8,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
 import { finalize, Observable } from 'rxjs';
 import { Ticket } from '../../models/ticket';
 import { TicketService } from '../../services/ticket';
+import { ConfirmDialog } from '../../shared/confirm-dialog/confirm-dialog';
+import { ConfirmDialogData } from '../../shared/confirm-dialog/confirm-dialog-data';
 
 @Component({
   selector: 'app-ticket-form',
@@ -24,6 +27,7 @@ export class TicketForm implements OnInit {
   private ticketService = inject(TicketService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private dialog = inject(MatDialog);
 
   private readonly destroyRef = inject(DestroyRef);
 
@@ -94,6 +98,8 @@ export class TicketForm implements OnInit {
           estado: ticket.estado,
           prioridad: ticket.prioridad
         });
+
+        this.ticketForm.markAsPristine();
 
         this.cargando.set(false);
       },
@@ -173,8 +179,31 @@ export class TicketForm implements OnInit {
   }
 
   cancelar(): void {
-    if (!this.guardando()) {
-      void this.router.navigate(['/tickets']);
+    if (this.guardando()) {
+      return;
     }
+
+    if (!this.ticketForm.dirty) {
+      void this.router.navigate(['/tickets']);
+      return;
+    }
+
+    const dialogRef = this.dialog.open(ConfirmDialog, {
+      width: '430px',
+      maxWidth: '95vw',
+      disableClose: true,
+      data: {
+        titulo: 'Descartar cambios',
+        mensaje: 'Tienes cambios sin guardar. ¿Deseas descartarlos?',
+        textoConfirmar: 'Descartar',
+        textoCancelar: 'Continuar editando'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((resultado: boolean) => {
+      if (resultado === true) {
+        void this.router.navigate(['/tickets']);
+      }
+    });
   }
 }
