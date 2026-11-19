@@ -105,6 +105,33 @@
         />
       }
     </div>
+
+    <div class="paginacion">
+      <span class="pagina-info">
+        Página {{ paginaActual() + 1 }} de {{ totalPaginas() }}
+      </span>
+
+      <mat-select [(value)]="ticketsPorPagina" (selectionChange)="cambiarTamanoPagina($event.value)">
+        <mat-option value="10">10 por página</mat-option>
+        <mat-option value="15">15 por página</mat-option>
+        <mat-option value="20">20 por página</mat-option>
+      </mat-select>
+
+      <button
+        mat-stroked-button
+        type="button"
+        [disabled]="paginaActual() === 0"
+        (click)="cambiarPagina(paginaActual() - 1)">
+        Anterior
+      </button>
+      <button
+        mat-stroked-button
+        type="button"
+        [disabled]="paginaActual() >= totalPaginas() - 1 || totalPaginas() === 0"
+        (click)="cambiarPagina(paginaActual() + 1)">
+        Siguiente
+      </button>
+    </div>
   }
 
 </section>

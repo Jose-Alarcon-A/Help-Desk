@@ -55,6 +55,9 @@ export class Kanban implements OnInit{
     fechaHasta: ''
   });
 
+  paginaActual = signal(0);
+  ticketsPorPagina = signal(10);
+
   ticketsFiltrados = computed(() => {
     const f = this.filtros();
     const texto = f.texto.trim().toLocaleLowerCase();
@@ -74,6 +77,14 @@ export class Kanban implements OnInit{
       return coincideTexto && coincideEstado && coincidePrioridad && coincideDesde && coincideHasta;
     }).sort((a, b) => new Date(b.fechaCreacion).getTime() - new Date(a.fechaCreacion).getTime());
   });
+
+  ticketsPaginados = computed(() => {
+    const inicio = this.paginaActual() * this.ticketsPorPagina();
+    const fin = inicio + this.ticketsPorPagina();
+    return this.ticketsFiltrados().slice(inicio, fin);
+  });
+
+  totalPaginas = computed(() => Math.ceil(this.ticketsFiltrados().length / this.ticketsPorPagina()));
 
   ngOnInit(): void {
     this.cargarTickets();
@@ -97,7 +108,16 @@ export class Kanban implements OnInit{
   }
 
   ticketsPorEstado(estado: Ticket['estado']): Ticket[] {
-    return this.ticketsFiltrados().filter(ticket => ticket.estado === estado);
+    return this.ticketsPaginados().filter(ticket => ticket.estado === estado);
+  }
+
+  cambiarPagina(pagina: number): void {
+    this.paginaActual.set(pagina);
+  }
+
+  cambiarTamanoPagina(tamano: number): void {
+    this.ticketsPorPagina.set(tamano);
+    this.paginaActual.set(0);
   }
 
   aplicarBusqueda(valor: string): void {
